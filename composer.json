@@ -1,0 +1,28 @@
+{
+    "name": "duncan3dc/cache",
+    "type": "library",
+    "description": "Simple PSR-6 compatible disk cache",
+    "keywords": ["cache", "disk", "psr-6", "psr6"],
+    "homepage": "https://github.com/duncan3dc/cache",
+    "license": "Apache-2.0",
+    "authors": [{
+        "name": "Craig Duncan",
+        "email": "git@duncanc.co.uk",
+        "homepage": "https://github.com/duncan3dc",
+        "role": "Developer"
+    }],
+    "require": {
+        "psr/cache": "1.0.0",
+        "php": "^5.6|^7.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.9",
+        "phpunit/phpunit": "^5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "duncan3dc\\Cache\\": "src/",
+            "duncan3dc\\CacheTests\\": "tests/"
+        }
+    }
+}
