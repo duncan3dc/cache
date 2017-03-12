@@ -44,6 +44,23 @@ $userData = $cache->getItem("user_data")->get();
 $userData = $cache->get("user_data");
 ```
 
+There's also a trait to allow any method to be automatically cached.
+
+```php
+$cache = new class {
+    use \duncan3dc\Cache\CacheCallsTrait;
+
+    public function _getData()
+    {
+        return [];
+    }
+};
+
+$cache->getData();
+```
+
+The first time `getData()` is called then `_getData()` will be run, but after that future calls to `getData()` will just return the cached result from the first call to `_getData()`.
+
 
 ## Changelog
 A [Changelog](CHANGELOG.md) has been available since the beginning of time
