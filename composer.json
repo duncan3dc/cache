@@ -1,8 +1,8 @@
 {
     "name": "duncan3dc/cache",
     "type": "library",
-    "description": "Simple PSR-6 compatible disk cache",
-    "keywords": ["cache", "disk", "psr-6", "psr6"],
+    "description": "Simple PSR-6/PSR-16 compatible disk cache",
+    "keywords": ["cache", "disk", "psr-6", "psr6", "psr-16", "psr16", "simple-cache", "array", "memory"],
     "homepage": "https://github.com/duncan3dc/cache",
     "license": "Apache-2.0",
     "authors": [{
@@ -13,6 +13,7 @@
     }],
     "require": {
         "psr/cache": "1.0.0",
+        "psr/simple-cache": "1.0.0",
         "php": "^5.6|^7.0"
     },
     "require-dev": {

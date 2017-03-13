@@ -3,10 +3,11 @@
 namespace duncan3dc\Cache;
 
 use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 
-class FilesystemPool implements CacheItemPoolInterface
+class FilesystemPool implements CacheInterface
 {
+    use SimpleCacheTrait;
+
     /**
      * @var string $path The local path to store the cache files in.
      */

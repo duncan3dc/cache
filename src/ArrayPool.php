@@ -3,10 +3,11 @@
 namespace duncan3dc\Cache;
 
 use Psr\Cache\CacheItemInterface;
-use Psr\Cache\CacheItemPoolInterface;
 
-class ArrayPool implements CacheItemPoolInterface
+class ArrayPool implements CacheInterface
 {
+    use SimpleCacheTrait;
+
     /**
      * @var array $data The array to store the cache data in.
      */

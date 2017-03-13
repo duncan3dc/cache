@@ -1,5 +1,5 @@
 # cache
-A simple [PSR-6](http://www.php-fig.org/psr/psr-6/) compatible disk cache for PHP
+A simple [PSR-6](http://www.php-fig.org/psr/psr-6/)/[PSR-16](http://www.php-fig.org/psr/psr-16/) compatible disk cache for PHP
  
 [![Build Status](https://img.shields.io/travis/duncan3dc/cache.svg)](https://travis-ci.org/duncan3dc/cache)
 [![Latest Version](https://img.shields.io/packagist/v/duncan3dc/cache.svg)](https://packagist.org/packages/duncan3dc/cache)
@@ -27,6 +27,9 @@ $cache = new \duncan3dc\Cache\FilesystemPool;
 
 # The $cache object implements PSR-6
 $userData = $cache->getItem("user_data")->get();
+
+# ...and PSR-16
+$userData = $cache->get("user_data");
 ```
 
 Using the `ArrayPool` will not persist data beyond the current request.
@@ -36,6 +39,9 @@ $cache = new \duncan3dc\Cache\ArrayPool;
 
 # The $cache object implements PSR-6
 $userData = $cache->getItem("user_data")->get();
+
+# ...and PSR-16
+$userData = $cache->get("user_data");
 ```
 
 

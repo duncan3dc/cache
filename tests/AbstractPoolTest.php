@@ -128,4 +128,112 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertTrue($this->pool->commit());
     }
+
+
+    public function testGet1()
+    {
+        $this->assertTrue($this->pool->set("episode7", "the force awakens"));
+        $this->assertSame("the force awakens", $this->pool->get("episode7"));
+    }
+    public function testGet2()
+    {
+        $this->assertNull($this->pool->get("episode8"));
+    }
+    public function testGet3()
+    {
+        $this->assertSame("the last jedi", $this->pool->get("episode8", "the last jedi"));
+    }
+
+
+    public function testSet()
+    {
+        $this->assertTrue($this->pool->set("luke", "skywalker"));
+        $this->assertSame("skywalker", $this->pool->get("luke"));
+    }
+
+
+    public function testDelete()
+    {
+        $this->assertTrue($this->pool->set("luke", "skywalker"));
+
+        $this->assertTrue($this->pool->delete("luke"));
+
+        $this->assertNull($this->pool->get("luke"));
+    }
+
+
+    public function testGetMultiple1()
+    {
+        $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"]);
+
+        $this->assertSame([
+            "episode7"  =>  null,
+            "episode8"  =>  null,
+            "episode9"  =>  null,
+        ], $result);
+    }
+    public function testGetMultiple2()
+    {
+        $this->assertTrue($this->pool->set("episode7", "the force awakens"));
+
+        $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"]);
+
+        $this->assertSame([
+            "episode7"  =>  "the force awakens",
+            "episode8"  =>  null,
+            "episode9"  =>  null,
+        ], $result);
+    }
+    public function testGetMultiple3()
+    {
+        $this->assertTrue($this->pool->set("episode7", "the force awakens"));
+        $this->assertTrue($this->pool->set("episode8", "the last jedi"));
+
+        $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"], "unknown");
+
+        $this->assertSame([
+            "episode7"  =>  "the force awakens",
+            "episode8"  =>  "the last jedi",
+            "episode9"  =>  "unknown",
+        ], $result);
+    }
+
+
+    public function testSetMultiple()
+    {
+        $this->assertTrue($this->pool->setMultiple([
+            "episode4"  =>  "a new hope",
+            "episode5"  =>  "the empire strikes back",
+        ]));
+
+        $this->assertSame("a new hope", $this->pool->get("episode4"));
+        $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
+    }
+
+
+    public function testDeleteMultiple()
+    {
+        $this->assertTrue($this->pool->setMultiple([
+            "episode4"  =>  "a new hope",
+            "episode5"  =>  "the empire strikes back",
+            "episode6"  =>  "return of the jedi",
+        ]));
+
+        $this->assertTrue($this->pool->deleteMultiple(["episode4", "episode6"]));
+
+        $this->assertNull($this->pool->get("episode4"));
+        $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
+        $this->assertNull($this->pool->get("episode6"));
+    }
+
+
+    public function testHas1()
+    {
+        $this->pool->set("episode8", "the last jedi");
+        $this->assertTrue($this->pool->has("episode8"));
+    }
+    public function testHas2()
+    {
+        $this->assertFalse($this->pool->has("episode9"));
+    }
 }
