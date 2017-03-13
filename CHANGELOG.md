@@ -1,0 +1,18 @@
+Changelog
+=========
+
+## x.y.z - UNRELEASED
+
+--------
+
+## 0.1.0 - 2017-03-13
+
+### Added
+
+* [FilesystemPool] Created a filesystem pool for long lived cache.
+* [ArrayPool] Created an array pool for short lived cache.
+* [PSR-6] All pools are compatible with PSR-6
+* [PSR-16] All pools are compatible with PSR-16
+* [CacheCallsTrait] Allow method calls to be easily cached.
+
+--------
