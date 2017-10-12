@@ -11,6 +11,7 @@ class CacheCalls
 
     private $counter1 = 0;
     private $counter2 = 0;
+    private $counter3 = 0;
 
 
     public function __construct(CacheInterface $pool = null)
@@ -38,5 +39,18 @@ class CacheCalls
     {
         ++$this->counter2;
         return "{$one}_{$two}_{$three}_{$this->counter2}";
+    }
+
+
+    public function manualOnce()
+    {
+        return $this->cacheMethod("manualOnce");
+    }
+
+
+    public function _manualOnce()
+    {
+        ++$this->counter3;
+        return "called_{$this->counter3}_times";
     }
 }

@@ -25,7 +25,7 @@ trait CacheCallsTrait
     }
 
 
-    public function __call($method, $args)
+    public function cacheMethod($method, ...$args)
     {
         # Generatea a key for this method call and it's arguments
         $key = sha1($method . print_r($args, true));
@@ -51,5 +51,11 @@ trait CacheCallsTrait
         $this->getCacheCallsPool()->set($key, $result);
 
         return $result;
+    }
+
+
+    public function __call($method, $args)
+    {
+        return $this->cacheMethod($method, ...$args);
     }
 }

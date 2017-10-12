@@ -36,6 +36,13 @@ class CacheCallsTraitTest extends \PHPUnit_Framework_TestCase
     }
 
 
+    public function testManualMethod()
+    {
+        $this->assertSame("called_1_times", $this->instance->manualOnce());
+        $this->assertSame("called_1_times", $this->instance->manualOnce());
+    }
+
+
     public function testSetCacheCallsPool()
     {
         $pool = Mockery::mock(CacheInterface::class);

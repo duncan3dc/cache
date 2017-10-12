@@ -5,6 +5,14 @@ Changelog
 
 --------
 
+## 0.2.0 - 2017-10-12
+
+### Added
+
+* [CacheCallsTrait] Add a cacheMethod() to manually call the cached version.
+
+--------
+
 ## 0.1.0 - 2017-03-13
 
 ### Added
