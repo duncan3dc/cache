@@ -131,6 +131,10 @@ class FilesystemPool implements CacheInterface
      */
     public function deleteItem($key)
     {
+        if (!$this->has($key)) {
+            return true;
+        }
+
         return unlink($this->getPath($key));
     }
 
