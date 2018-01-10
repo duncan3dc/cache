@@ -6,6 +6,7 @@ use Psr\Cache\CacheItemInterface;
 
 class ArrayPool implements CacheInterface
 {
+    use CacheKeyTrait;
     use SimpleCacheTrait;
 
     /**
@@ -23,6 +24,8 @@ class ArrayPool implements CacheInterface
      */
     public function getItem($key)
     {
+        $this->validateKey($key);
+
         if ($this->hasItem($key)) {
             return $this->data[$key];
         }
@@ -41,6 +44,8 @@ class ArrayPool implements CacheInterface
      */
     public function getItems(array $keys = [])
     {
+        $this->validateKeys($keys);
+
         $result = [];
 
         foreach ($keys as $key) {
@@ -60,6 +65,8 @@ class ArrayPool implements CacheInterface
      */
     public function hasItem($key)
     {
+        $this->validateKey($key);
+
         return array_key_exists($key, $this->data);
     }
 
@@ -86,6 +93,8 @@ class ArrayPool implements CacheInterface
      */
     public function deleteItem($key)
     {
+        $this->validateKey($key);
+
         if ($this->hasItem($key)) {
             unset($this->data[$key]);
         }
@@ -103,6 +112,8 @@ class ArrayPool implements CacheInterface
      */
     public function deleteItems(array $keys)
     {
+        $this->validateKeys($keys);
+
         $result = true;
 
         foreach ($keys as $key) {
@@ -125,6 +136,9 @@ class ArrayPool implements CacheInterface
     public function save(CacheItemInterface $item)
     {
         $key = $item->getKey();
+
+        $this->validateKey($key);
+
         $this->data[$key] = $item;
 
         return true;

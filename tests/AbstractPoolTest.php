@@ -3,6 +3,8 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Item;
+use duncan3dc\Cache\Exceptions\CacheKeyException;
+use duncan3dc\Cache\Exceptions\CacheException;
 
 abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
 {
@@ -67,12 +69,15 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
 
     public function testClear()
     {
-        $this->pool->save(new Item("episode7", "the force awakens"));
-        $this->assertTrue($this->pool->hasItem("episode7"));
+        $this->pool->set("one", 1);
+        $this->pool->set("two", 2);
+        $this->assertTrue($this->pool->has("one"));
+        $this->assertTrue($this->pool->has("two"));
 
         $this->assertTrue($this->pool->clear());
 
-        $this->assertFalse($this->pool->hasItem("episode7"));
+        $this->assertFalse($this->pool->has("one"));
+        $this->assertFalse($this->pool->has("two"));
     }
 
 
@@ -141,24 +146,49 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
     }
     public function testGet3()
     {
-        $this->assertSame("the last jedi", $this->pool->get("episode8", "the last jedi"));
+        $result = $this->pool->get("episode8", "the last jedi");
+        $this->assertSame("the last jedi", $result);
+    }
+    public function testGet4()
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->get(404);
     }
 
 
-    public function testSet()
+    public function testSet1()
     {
-        $this->assertTrue($this->pool->set("luke", "skywalker"));
-        $this->assertSame("skywalker", $this->pool->get("luke"));
+        $result = $this->pool->set("snarky_puppy", "culcha vulcha");
+        $this->assertTrue($result);
+        $this->assertSame("culcha vulcha", $this->pool->get("snarky_puppy", "shofukan"));
+    }
+    public function testSet2()
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->set(404, "value");
     }
 
 
-    public function testDelete()
+    public function testDelete1()
     {
-        $this->assertTrue($this->pool->set("luke", "skywalker"));
-
-        $this->assertTrue($this->pool->delete("luke"));
-
-        $this->assertNull($this->pool->get("luke"));
+        $this->pool->set("snarky_puppy", "culcha vulcha");
+        $result = $this->pool->delete("snarky_puppy");
+        $this->assertTrue($result);
+        $this->assertFalse($this->pool->has("snarky_puppy"));
+    }
+    public function testDelete2()
+    {
+        $result = $this->pool->delete("does-not-exist");
+        $this->assertTrue($result);
+        $this->assertFalse($this->pool->has("does-not-exist"));
+    }
+    public function testDelete3()
+    {
+        $this->expectException("Psr\Cache\CacheException");
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->delete(404, "value");
     }
 
 
@@ -197,9 +227,21 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
             "episode9"  =>  "unknown",
         ], $result);
     }
+    public function testGetMultiple4()
+    {
+        $this->expectException("Psr\SimpleCache\InvalidArgumentException");
+        $this->expectExceptionMessage("Invalid keys, must be iterable");
+        $this->pool->getMultiple(new \DateTime);
+    }
+    public function testGetMultiple5()
+    {
+        $this->expectException("Psr\Cache\InvalidArgumentException");
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->getMultiple(["ok", 77]);
+    }
 
 
-    public function testSetMultiple()
+    public function testSetMultiple1()
     {
         $this->assertTrue($this->pool->setMultiple([
             "episode4"  =>  "a new hope",
@@ -209,9 +251,21 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("a new hope", $this->pool->get("episode4"));
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
     }
+    public function testSetMultiple2()
+    {
+        $this->expectException("Psr\Cache\CacheException");
+        $this->expectExceptionMessage("Invalid keys, must be iterable");
+        $this->pool->setMultiple(new \DateTime);
+    }
+    public function testSetMultiple3()
+    {
+        $this->expectException("Psr\SimpleCache\CacheException");
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->setMultiple(["ok" => 1, 77 => 2]);
+    }
 
 
-    public function testDeleteMultiple()
+    public function testDeleteMultiple1()
     {
         $this->assertTrue($this->pool->setMultiple([
             "episode4"  =>  "a new hope",
@@ -225,15 +279,51 @@ abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
         $this->assertNull($this->pool->get("episode6"));
     }
+    public function testDeleteMultiple2()
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->expectExceptionMessage("Invalid keys, must be iterable");
+        $this->pool->DeleteMultiple(new \DateTime);
+    }
+    public function testDeleteMultiple3()
+    {
+        $this->expectException(CacheException::class);
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->DeleteMultiple(["ok", 77]);
+    }
 
 
     public function testHas1()
     {
-        $this->pool->set("episode8", "the last jedi");
-        $this->assertTrue($this->pool->has("episode8"));
+        $result = $this->pool->has("no-such-key");
+        $this->assertFalse($result);
     }
     public function testHas2()
     {
-        $this->assertFalse($this->pool->has("episode9"));
+        $this->pool->set("haken", "affinity");
+        $result = $this->pool->has("haken");
+        $this->assertTrue($result);
+    }
+    public function testHas3()
+    {
+        $this->pool->set("afi", "decemberunderground");
+        $this->assertTrue($this->pool->has("afi"));
+        $this->pool->delete("afi");
+        $result = $this->pool->has("afi");
+        $this->assertFalse($result);
+    }
+    public function testHas4()
+    {
+        $this->pool->set("periphery", "clear");
+        $this->assertTrue($this->pool->has("periphery"));
+        $this->pool->clear();
+        $result = $this->pool->has("periphery");
+        $this->assertFalse($result);
+    }
+    public function testHas5()
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->expectExceptionMessage("Cache key must be a string, integer given");
+        $this->pool->has(123);
     }
 }

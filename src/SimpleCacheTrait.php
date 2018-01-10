@@ -62,6 +62,8 @@ trait SimpleCacheTrait
      */
     public function getMultiple($keys, $default = null)
     {
+        $this->validateKeys($keys);
+
         $result = [];
 
         foreach ($keys as $key) {
@@ -82,6 +84,8 @@ trait SimpleCacheTrait
      */
     public function setMultiple($values, $ttl = null)
     {
+        $this->validateKeys($values);
+
         $result = true;
         foreach ($values as $key => $value) {
             if (!$this->set($key, $value, $ttl)) {
@@ -102,6 +106,8 @@ trait SimpleCacheTrait
      */
     public function deleteMultiple($keys)
     {
+        $this->validateKeys($keys);
+
         $result = true;
         foreach ($keys as $key) {
             if (!$this->delete($key)) {

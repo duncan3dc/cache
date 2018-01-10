@@ -6,6 +6,7 @@ use Psr\Cache\CacheItemInterface;
 
 class FilesystemPool implements CacheInterface
 {
+    use CacheKeyTrait;
     use SimpleCacheTrait;
 
     /**
@@ -53,6 +54,8 @@ class FilesystemPool implements CacheInterface
      */
     public function getItem($key)
     {
+        $this->validateKey($key);
+
         if ($this->hasItem($key)) {
 
             $data = file_get_contents($this->getPath($key));
@@ -80,6 +83,8 @@ class FilesystemPool implements CacheInterface
      */
     public function getItems(array $keys = [])
     {
+        $this->validateKeys($keys);
+
         $result = [];
 
         foreach ($keys as $key) {
@@ -99,6 +104,8 @@ class FilesystemPool implements CacheInterface
      */
     public function hasItem($key)
     {
+        $this->validateKey($key);
+
         return file_exists($this->getPath($key));
     }
 
@@ -131,6 +138,8 @@ class FilesystemPool implements CacheInterface
      */
     public function deleteItem($key)
     {
+        $this->validateKey($key);
+
         if (!$this->has($key)) {
             return true;
         }
@@ -148,6 +157,8 @@ class FilesystemPool implements CacheInterface
      */
     public function deleteItems(array $keys)
     {
+        $this->validateKeys($keys);
+
         $result = true;
 
         foreach ($keys as $key) {
@@ -169,9 +180,13 @@ class FilesystemPool implements CacheInterface
      */
     public function save(CacheItemInterface $item)
     {
+        $key = $item->getKey();
+
+        $this->validateKey($key);
+
         $data = serialize($item);
 
-        $result = file_put_contents($this->getPath($item->getKey()), $data);
+        $result = file_put_contents($this->getPath($key), $data);
 
         if ($result === false) {
             return false;
