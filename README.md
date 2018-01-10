@@ -1,8 +1,9 @@
 # cache
 A simple [PSR-6](http://www.php-fig.org/psr/psr-6/)/[PSR-16](http://www.php-fig.org/psr/psr-16/) compatible disk cache for PHP
  
-[![Build Status](https://img.shields.io/travis/duncan3dc/cache.svg)](https://travis-ci.org/duncan3dc/cache)
-[![Latest Version](https://img.shields.io/packagist/v/duncan3dc/cache.svg)](https://packagist.org/packages/duncan3dc/cache)
+[![Latest Stable Version](https://poser.pugx.org/duncan3dc/cache/version.svg)](https://packagist.org/packages/duncan3dc/cache)
+[![Build Status](https://travis-ci.org/duncan3dc/cache.svg?branch=master)](https://travis-ci.org/duncan3dc/cache)
+[![Coverage Status](https://coveralls.io/repos/github/duncan3dc/cache/badge.svg)](https://coveralls.io/github/duncan3dc/cache)
 
 
 ## Installation

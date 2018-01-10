@@ -19,7 +19,8 @@
     "require-dev": {
         "duncan3dc/object-intruder": "^0.3.0",
         "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^5.7.10"
+        "phpunit/phpunit": "^5.7.10",
+        "php-coveralls/php-coveralls": "^2.0"
     },
     "autoload": {
         "psr-4": {"duncan3dc\\Cache\\": "src/"}
