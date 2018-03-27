@@ -2,6 +2,7 @@
 
 namespace duncan3dc\CacheTests;
 
+use duncan3dc\PhpIni\State;
 use Mockery;
 use Psr\SimpleCache\CacheInterface;
 
@@ -40,6 +41,21 @@ class CacheCallsTraitTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertSame("called_1_times", $this->instance->manualOnce());
         $this->assertSame("called_1_times", $this->instance->manualOnce());
+    }
+
+
+    public function testMethodDoesntExist()
+    {
+        $ini = new State;
+        $ini->set("max_execution_time", 1);
+        $ini->set("xdebug.max_nesting_level", 30);
+
+        $this->expectException(\BadMethodCallException::class);
+        $this->expectExceptionMessage("Call to undefined method duncan3dc\CacheTests\CacheCalls::doesNotExist()");
+
+        $ini->call(function () {
+            $this->instance->doesNotExist();
+        });
     }
 
 

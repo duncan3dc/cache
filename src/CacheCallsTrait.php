@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Cache;
 
+use function method_exists;
 use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
 
 trait CacheCallsTrait
@@ -45,6 +46,11 @@ trait CacheCallsTrait
          * to $instance->getData() will return the previously cached value.
          */
         $call = "_{$method}";
+
+        if (!method_exists($this, $call)) {
+            throw new \BadMethodCallException("Call to undefined method " . get_class($this) . "::{$method}()");
+        }
+
         $result = $this->$call(...$args);
 
         # Store the result for future calls

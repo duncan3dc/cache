@@ -5,6 +5,14 @@ Changelog
 
 --------
 
+## 0.4.0 - 2018-03-27
+
+### Fixed
+
+* [CacheCallTrait] Ensure methods actually exist before trying to call them.
+
+--------
+
 ## 0.3.0 - 2018-01-10
 
 ### Changed
