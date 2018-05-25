@@ -3,8 +3,9 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Item;
+use PHPUnit\Framework\TestCase;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends TestCase
 {
 
     public function testGetKey()
@@ -66,5 +67,31 @@ class ItemTest extends \PHPUnit_Framework_TestCase
         $item = new Item("test");
 
         $this->assertFalse($item->isHit());
+    }
+
+    public function testExpiresAt()
+    {
+        $item = new Item("test");
+
+        $this->assertInstanceOf(Item::class, $item->expiresAt(new \DateTime()));
+    }
+
+
+    public function expiresAfterDataProvider()
+    {
+        return [
+            [\DateInterval::createFromDateString('1 day')],
+            [10],
+        ];
+    }
+    /**
+     * @dataProvider expiresAfterDataProvider
+     */
+    public function testExpiresAfter($time)
+    {
+        $item = new Item("test");
+
+        $this->assertInstanceOf(Item::class, $item->expiresAfter($time));
+        $this->assertGreaterThanOrEqual(time(), $item->expiration);
     }
 }

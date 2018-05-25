@@ -3,6 +3,7 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\FilesystemPool;
+use duncan3dc\Cache\Item;
 use duncan3dc\ObjectIntruder\Intruder;
 
 class FilesystemPoolTest extends AbstractPoolTest
@@ -20,6 +21,15 @@ class FilesystemPoolTest extends AbstractPoolTest
     protected function getPool()
     {
         return new FilesystemPool($this->path);
+    }
+
+
+    public function testConstructorOnCreateNewPath()
+    {
+        $pool = new FilesystemPool('create_new_path');
+        $intruder = new Intruder($pool);
+
+        $this->assertSame('create_new_path/.cache', $intruder->getPath(""));
     }
 
 

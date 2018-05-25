@@ -3,8 +3,9 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
+use PHPUnit\Framework\TestCase;
 
-class CacheKeysTraitTest extends \PHPUnit_Framework_TestCase
+class CacheKeysTraitTest extends TestCase
 {
     private $cache;
 
@@ -46,5 +47,10 @@ class CacheKeysTraitTest extends \PHPUnit_Framework_TestCase
 
         $this->cache->validateKey($key);
         $this->assertTrue(true);
+    }
+    public function testValidateKeyOnLongKey()
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->cache->validateKey(str_repeat('key_length_is_greater_than_64', 3));
     }
 }

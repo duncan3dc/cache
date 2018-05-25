@@ -5,8 +5,9 @@ namespace duncan3dc\CacheTests;
 use duncan3dc\PhpIni\State;
 use Mockery;
 use Psr\SimpleCache\CacheInterface;
+use PHPUnit\Framework\TestCase;
 
-class CacheCallsTraitTest extends \PHPUnit_Framework_TestCase
+class CacheCallsTraitTest extends TestCase
 {
     private $instance;
 

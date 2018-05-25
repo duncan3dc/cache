@@ -188,10 +188,6 @@ class FilesystemPool implements CacheInterface
 
         $result = file_put_contents($this->getPath($key), $data);
 
-        if ($result === false) {
-            return false;
-        }
-
         return true;
     }
 
