@@ -2,11 +2,12 @@
 
 namespace duncan3dc\CacheTests;
 
-use duncan3dc\Cache\Item;
-use duncan3dc\Cache\Exceptions\CacheKeyException;
 use duncan3dc\Cache\Exceptions\CacheException;
+use duncan3dc\Cache\Exceptions\CacheKeyException;
+use duncan3dc\Cache\Item;
+use PHPUnit\Framework\TestCase;
 
-abstract class AbstractPoolTest extends \PHPUnit_Framework_TestCase
+abstract class AbstractPoolTest extends TestCase
 {
     private $pool;
 

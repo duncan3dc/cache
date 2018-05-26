@@ -3,8 +3,9 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
+use PHPUnit\Framework\TestCase;
 
-class CacheKeysTraitTest extends \PHPUnit_Framework_TestCase
+class CacheKeysTraitTest extends TestCase
 {
     private $cache;
 

@@ -3,8 +3,9 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Item;
+use PHPUnit\Framework\TestCase;
 
-class ItemTest extends \PHPUnit_Framework_TestCase
+class ItemTest extends TestCase
 {
 
     public function testGetKey()
