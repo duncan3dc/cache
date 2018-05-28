@@ -8,7 +8,7 @@ class CacheKeys
 {
     use CacheKeyTrait;
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         return $this->$method(...$args);
     }

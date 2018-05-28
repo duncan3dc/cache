@@ -19,7 +19,7 @@ class FilesystemPool implements CacheInterface
      *
      * @param string $path The local path to store the cache files in
      */
-    public function __construct($path)
+    public function __construct(string $path)
     {
         $this->path = $path;
 
@@ -39,7 +39,7 @@ class FilesystemPool implements CacheInterface
      *
      * @return string
      */
-    private function getPath($key)
+    private function getPath(string $key): string
     {
         return $this->path . DIRECTORY_SEPARATOR . $key . ".cache";
     }

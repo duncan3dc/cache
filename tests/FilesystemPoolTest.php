@@ -2,6 +2,7 @@
 
 namespace duncan3dc\CacheTests;
 
+use duncan3dc\Cache\CacheInterface;
 use duncan3dc\Cache\FilesystemPool;
 use duncan3dc\ObjectIntruder\Intruder;
 
@@ -17,13 +18,13 @@ class FilesystemPoolTest extends AbstractPoolTest
     }
 
 
-    protected function getPool()
+    protected function getPool(): CacheInterface
     {
         return new FilesystemPool($this->path);
     }
 
 
-    public function pathProvider()
+    public function pathProvider(): array
     {
         return [
             ["test", "test.cache"],
@@ -32,7 +33,7 @@ class FilesystemPoolTest extends AbstractPoolTest
     /**
      * @dataProvider pathProvider
      */
-    public function testGetPath($key, $path)
+    public function testGetPath(string $key, string $path)
     {
         $intruder = new Intruder($this->getPool());
 

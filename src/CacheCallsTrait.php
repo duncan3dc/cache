@@ -16,7 +16,7 @@ trait CacheCallsTrait
     }
 
 
-    private function getCacheCallsPool()
+    private function getCacheCallsPool(): SimpleCacheInterface
     {
         if ($this->_cache === null) {
             $this->_cache = new ArrayPool;
@@ -26,7 +26,7 @@ trait CacheCallsTrait
     }
 
 
-    public function cacheMethod($method, ...$args)
+    public function cacheMethod(string $method, ...$args)
     {
         # Generatea a key for this method call and it's arguments
         $key = sha1($method . print_r($args, true));
@@ -60,7 +60,7 @@ trait CacheCallsTrait
     }
 
 
-    public function __call($method, $args)
+    public function __call(string $method, array $args)
     {
         return $this->cacheMethod($method, ...$args);
     }

@@ -22,20 +22,20 @@ class CacheCalls
     }
 
 
-    public function normalMethod()
+    public function normalMethod(): string
     {
         return "ok";
     }
 
 
-    public function _justOnce()
+    public function _justOnce(): string
     {
         ++$this->counter1;
         return "called_{$this->counter1}_times";
     }
 
 
-    public function _withParams($one, $two, $three)
+    public function _withParams(string $one, string $two, string $three): string
     {
         ++$this->counter2;
         return "{$one}_{$two}_{$three}_{$this->counter2}";
