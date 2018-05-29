@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 abstract class AbstractPoolTest extends TestCase
 {
+    /**
+     * @var CacheInterface $pool The instance we are testing.
+     */
     private $pool;
 
 

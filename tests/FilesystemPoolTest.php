@@ -8,6 +8,9 @@ use duncan3dc\ObjectIntruder\Intruder;
 
 class FilesystemPoolTest extends AbstractPoolTest
 {
+    /**
+     * @var string $path A path to the local testing directory.
+     */
     private $path;
 
     public function setUp()

@@ -7,6 +7,9 @@ use PHPUnit\Framework\TestCase;
 
 class CacheKeysTraitTest extends TestCase
 {
+    /**
+     * @var CacheKeys $cache The instance we are testing.
+     */
     private $cache;
 
     public function setUp()

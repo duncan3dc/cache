@@ -2,11 +2,17 @@
 
 namespace duncan3dc\Cache;
 
-use function method_exists;
 use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
+use function get_class;
+use function method_exists;
+use function print_r;
+use function sha1;
 
 trait CacheCallsTrait
 {
+    /**
+     * @var SimpleCacheInterface $_cache The internal cache instance we are using.
+     */
     private $_cache;
 
 
@@ -28,7 +34,7 @@ trait CacheCallsTrait
 
     public function cacheMethod(string $method, ...$args)
     {
-        # Generatea a key for this method call and it's arguments
+        # Generates a key for this method call and its arguments
         $key = sha1($method . print_r($args, true));
 
         /**

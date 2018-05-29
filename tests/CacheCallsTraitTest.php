@@ -9,6 +9,9 @@ use Psr\SimpleCache\CacheInterface;
 
 class CacheCallsTraitTest extends TestCase
 {
+    /**
+     * @var CacheCalls $instance The instance we are testing.
+     */
     private $instance;
 
     public function setUp()
