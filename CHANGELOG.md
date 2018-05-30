@@ -5,6 +5,19 @@ Changelog
 
 --------
 
+## 0.5.0 - 2018-05-30
+
+### Fixed
+
+* [Dependencies] Allow any version of the PSRs to be installed.
+
+### Changed
+
+* [CacheCallTrait] Add some type hints.
+* [Support] Drop support for PHP 5.6
+
+--------
+
 ## 0.4.0 - 2018-03-27
 
 ### Fixed
