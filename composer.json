@@ -18,10 +18,10 @@
     },
     "require-dev": {
         "duncan3dc/object-intruder": "^0.3.0",
-        "duncan3dc/php-ini": "^0.1.0",
+        "duncan3dc/php-ini": "^1.0",
         "maglnet/composer-require-checker": "^0.2.1",
-        "mockery/mockery": "^1.0",
-        "phpunit/phpunit": "^6.0"
+        "mockery/mockery": "^1.1",
+        "phpunit/phpunit": "^7.2"
     },
     "autoload": {
         "psr-4": {"duncan3dc\\Cache\\": "src/"}
