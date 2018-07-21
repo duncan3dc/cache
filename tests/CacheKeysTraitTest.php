@@ -4,6 +4,7 @@ namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
 use PHPUnit\Framework\TestCase;
+use function str_repeat;
 
 class CacheKeysTraitTest extends TestCase
 {
@@ -27,6 +28,7 @@ class CacheKeysTraitTest extends TestCase
             "!NOPE"     =>  "Cache key contains invalid characters",
             "/root"     =>  "Cache key contains invalid characters",
             "\\escape"  =>  "Cache key contains invalid characters",
+            "too" . str_repeat("o", 60) . "_long"  =>  "Cache key cannot be longer than 64 characters",
         ];
         foreach ($keys as $key => $expected) {
             yield [$key, $expected];
