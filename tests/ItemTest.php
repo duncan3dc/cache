@@ -68,4 +68,34 @@ class ItemTest extends TestCase
 
         $this->assertFalse($item->isHit());
     }
+
+
+    public function testExpiresAt()
+    {
+        $item = new Item("test", "value");
+        $this->assertSame(true, $item->isHit());
+
+        $item->expiresAt(new \DateTime("2018-07-04 13:27:01"));
+        $this->assertSame(false, $item->isHit());
+    }
+
+
+    public function testExpiresAfter1()
+    {
+        $item = new Item("test", "value");
+        $this->assertSame(true, $item->isHit());
+
+        $item->expiresAfter(-7);
+        $this->assertSame(false, $item->isHit());
+    }
+    public function testExpiresAfter2()
+    {
+        $item = new Item("test", "value");
+        $this->assertSame(true, $item->isHit());
+
+        $interval = new \DateInterval("PT7S");
+        $interval->invert = 1;
+        $item->expiresAfter($interval);
+        $this->assertSame(false, $item->isHit());
+    }
 }

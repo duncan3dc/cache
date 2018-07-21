@@ -175,6 +175,35 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
+    public function testSetWithTtl1()
+    {
+        $result = $this->pool->set("novallo", "white phoenix", 7);
+        $this->assertTrue($result);
+        $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
+    }
+    public function testSetWithTtl2()
+    {
+        $result = $this->pool->set("novallo", "white phoenix", -7);
+        $this->assertTrue($result);
+        $this->assertSame("betty phage", $this->pool->get("novallo", "betty phage"));
+    }
+    public function testSetWithTtl3()
+    {
+        $interval = new \DateInterval("PT7S");
+        $result = $this->pool->set("novallo", "white phoenix", $interval);
+        $this->assertTrue($result);
+        $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
+    }
+    public function testSetWithTtl4()
+    {
+        $interval = new \DateInterval("PT7S");
+        $interval->invert = 1;
+        $result = $this->pool->set("novallo", "white phoenix", $interval);
+        $this->assertTrue($result);
+        $this->assertSame("betty phage", $this->pool->get("novallo", "betty phage"));
+    }
+
+
     public function testDelete1()
     {
         $this->pool->set("snarky_puppy", "culcha vulcha");

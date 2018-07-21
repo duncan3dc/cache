@@ -2,6 +2,8 @@
 
 namespace duncan3dc\Cache;
 
+use Psr\Cache\CacheItemInterface;
+
 trait SimpleCacheTrait
 {
 
@@ -16,7 +18,11 @@ trait SimpleCacheTrait
     public function get($key, $default = null)
     {
         if ($this->has($key)) {
-            return $this->getItem($key)->get();
+            /** @var CacheItemInterface $item */
+            $item = $this->getItem($key);
+            if ($item->isHit()) {
+                return $item->get();
+            }
         }
 
         return $default;
@@ -28,13 +34,16 @@ trait SimpleCacheTrait
      *
      * @param string $key The key of the item to store
      * @param mixed $value The value of the item to store, must be serializable
-     * @param null $ttl Not used in this implementation
+     * @param \DateInterval|int|null $ttl The TTL value of this item
      *
      * @return bool
      */
     public function set($key, $value, $ttl = null)
     {
         $item = new Item($key, $value);
+        if ($ttl !== null) {
+            $item->expiresAfter($ttl);
+        }
         return $this->save($item);
     }
 
@@ -78,7 +87,7 @@ trait SimpleCacheTrait
      * Persists a set of key => value pairs in the cache.
      *
      * @param iterable $values A list of key => value pairs for a multiple-set operation
-     * @param null $ttl Not used in this implementation
+     * @param \DateInterval|int|null $ttl The TTL value of this item
      *
      * @return bool
      */

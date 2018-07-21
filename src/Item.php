@@ -67,7 +67,17 @@ class Item implements CacheItemInterface
      */
     public function isHit()
     {
-        return ($this->value !== null);
+        if ($this->value === null) {
+            return false;
+        }
+
+        if ($this->expiration !== null) {
+            if ($this->expiration < time()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 
@@ -111,7 +121,7 @@ class Item implements CacheItemInterface
     public function expiresAfter($time)
     {
         if ($time instanceof \DateInterval) {
-            $time = (int) $time->format("%s");
+            $time = (int) $time->format("%r%s");
         }
 
         $this->expiration = time() + $time;
