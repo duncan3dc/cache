@@ -1,0 +1,11 @@
+parameters:
+  ignoreErrors:
+    - '/Call to an undefined method duncan3dc\\ObjectIntruder\\Intruder::/'
+
+    - '/Parameter #[0-9] .* of .* expects .*Mockery\\MockInterface given/'
+    - '/Call to an undefined method Mockery\\ExpectationInterface|Mockery\\HigherOrderMessage::andReturn\(\)/'
+
+    - '/Call to protected method .* of class duncan3dc\\CacheTests\\CacheKeys/'
+    - '/Call to an undefined method duncan3dc\\CacheTests\\CacheCalls::/'
+
+    - '/Parameter #1 .* of method Psr\\SimpleCache\\CacheInterface::/'

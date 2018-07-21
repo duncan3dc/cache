@@ -19,14 +19,25 @@
     "require-dev": {
         "duncan3dc/object-intruder": "^0.3.0",
         "duncan3dc/php-ini": "^1.0",
-        "maglnet/composer-require-checker": "^0.2.1",
+        "maglnet/composer-require-checker": "^1.0",
         "mockery/mockery": "^1.1",
-        "phpunit/phpunit": "^7.2"
+        "phpstan/phpstan": "^0.10.1",
+        "squizlabs/php_codesniffer": "^3.3",
+        "phpunit/phpunit": "^6.4"
     },
     "autoload": {
         "psr-4": {"duncan3dc\\Cache\\": "src/"}
     },
     "autoload-dev": {
         "psr-4": {"duncan3dc\\CacheTests\\": "tests/"}
+    },
+    "scripts": {
+        "test": [
+            "vendor/bin/phpunit",
+            "vendor/bin/composer-require-checker",
+            "vendor/bin/phpstan analyse --level=max src",
+            "vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests",
+            "vendor/bin/phpcs --standard=PSR1,PSR2,PSR12 --exclude=PSR2.Methods.MethodDeclaration,PSR2.Classes.PropertyDeclaration src tests"
+        ]
     }
 }
