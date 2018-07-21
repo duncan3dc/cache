@@ -11,7 +11,7 @@ use function sha1;
 trait CacheCallsTrait
 {
     /**
-     * @var SimpleCacheInterface $_cache The internal cache instance we are using.
+     * @var SimpleCacheInterface The internal cache instance we are using.
      */
     private $_cache;
 

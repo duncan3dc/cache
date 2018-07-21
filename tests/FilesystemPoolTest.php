@@ -5,11 +5,12 @@ namespace duncan3dc\CacheTests;
 use duncan3dc\Cache\CacheInterface;
 use duncan3dc\Cache\FilesystemPool;
 use duncan3dc\ObjectIntruder\Intruder;
+use function sys_get_temp_dir;
 
 class FilesystemPoolTest extends AbstractPoolTest
 {
     /**
-     * @var string $path A path to the local testing directory.
+     * @var string A path to the local testing directory.
      */
     private $path;
 

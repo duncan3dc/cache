@@ -2,7 +2,18 @@
 
 namespace duncan3dc\Cache;
 
+use duncan3dc\Cache\Exceptions\CacheKeyException;
 use Psr\Cache\CacheItemInterface;
+use function chmod;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function glob;
+use function is_dir;
+use function mkdir;
+use function serialize;
+use function unlink;
+use function unserialize;
 
 class FilesystemPool implements CacheInterface
 {
@@ -10,7 +21,7 @@ class FilesystemPool implements CacheInterface
     use SimpleCacheTrait;
 
     /**
-     * @var string $path The local path to store the cache files in.
+     * @var string The local path to store the cache files in.
      */
     private $path;
 
@@ -51,6 +62,7 @@ class FilesystemPool implements CacheInterface
      * @param string $key The key for which to return the corresponding Cache Item.
      *
      * @return CacheItemInterface
+     * @throws CacheKeyException
      */
     public function getItem($key)
     {
@@ -81,7 +93,8 @@ class FilesystemPool implements CacheInterface
      *
      * @param array $keys An indexed array of keys of items to retrieve.
      *
-     * @return \Traversable
+     * @return iterable
+     * @throws CacheKeyException
      */
     public function getItems(array $keys = [])
     {
@@ -103,6 +116,7 @@ class FilesystemPool implements CacheInterface
      * @param string $key The key for which to check existence.
      *
      * @return bool
+     * @throws CacheKeyException
      */
     public function hasItem($key)
     {
@@ -137,6 +151,7 @@ class FilesystemPool implements CacheInterface
      * @param string $key The key for which to delete
      *
      * @return bool
+     * @throws CacheKeyException
      */
     public function deleteItem($key)
     {
@@ -156,6 +171,7 @@ class FilesystemPool implements CacheInterface
      * @param array $keys An array of keys that should be removed from the pool
      *
      * @return bool
+     * @throws CacheKeyException
      */
     public function deleteItems(array $keys)
     {
@@ -179,6 +195,7 @@ class FilesystemPool implements CacheInterface
      * @param CacheItemInterface $item The cache item to save
      *
      * @return bool
+     * @throws CacheKeyException
      */
     public function save(CacheItemInterface $item)
     {
@@ -205,6 +222,7 @@ class FilesystemPool implements CacheInterface
      *   The cache item to save.
      *
      * @return bool
+     * @throws CacheKeyException
      */
     public function saveDeferred(CacheItemInterface $item)
     {

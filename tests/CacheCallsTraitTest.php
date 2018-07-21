@@ -9,9 +9,7 @@ use Psr\SimpleCache\CacheInterface;
 
 class CacheCallsTraitTest extends TestCase
 {
-    /**
-     * @var CacheCalls $instance The instance we are testing.
-     */
+    /** @var CacheCalls */
     private $instance;
 
     public function setUp()
@@ -51,8 +49,8 @@ class CacheCallsTraitTest extends TestCase
     public function testMethodDoesntExist()
     {
         $ini = new State;
-        $ini->set("max_execution_time", 1);
-        $ini->set("xdebug.max_nesting_level", 30);
+        $ini->set("max_execution_time", "1");
+        $ini->set("xdebug.max_nesting_level", "30");
 
         $this->expectException(\BadMethodCallException::class);
         $this->expectExceptionMessage("Call to undefined method duncan3dc\CacheTests\CacheCalls::doesNotExist()");

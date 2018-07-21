@@ -2,17 +2,16 @@
 
 namespace duncan3dc\CacheTests;
 
+use ArrayIterator;
+use duncan3dc\Cache\CacheInterface;
 use duncan3dc\Cache\Exceptions\CacheException;
 use duncan3dc\Cache\Exceptions\CacheKeyException;
-use duncan3dc\Cache\CacheInterface;
 use duncan3dc\Cache\Item;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractPoolTest extends TestCase
 {
-    /**
-     * @var CacheInterface $pool The instance we are testing.
-     */
+    /** @var CacheInterface */
     private $pool;
 
 
@@ -88,7 +87,7 @@ abstract class AbstractPoolTest extends TestCase
 
     public function testDeleteItem()
     {
-        $item = $this->testSave();
+        $this->testSave();
 
         $this->assertTrue($this->pool->deleteItem("luke"));
         $this->assertNull($this->pool->getItem("luke")->get());
@@ -97,7 +96,7 @@ abstract class AbstractPoolTest extends TestCase
 
     public function testDeleteItems()
     {
-        $luke = $this->testSave();
+        $this->testSave();
 
         $han = new Item("han", "solo");
         $this->assertTrue($this->pool->save($han));
@@ -193,7 +192,7 @@ abstract class AbstractPoolTest extends TestCase
     {
         $this->expectException("Psr\Cache\CacheException");
         $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->delete(404, "value");
+        $this->pool->delete(404);
     }
 
 
@@ -234,11 +233,24 @@ abstract class AbstractPoolTest extends TestCase
     }
     public function testGetMultiple4()
     {
+        $this->assertTrue($this->pool->set("episode7", "the force awakens"));
+        $this->assertTrue($this->pool->set("episode8", "the last jedi"));
+
+        $result = $this->pool->getMultiple(new ArrayIterator(["episode7", "episode8", "episode9"]), "unknown");
+
+        $this->assertSame([
+            "episode7"  =>  "the force awakens",
+            "episode8"  =>  "the last jedi",
+            "episode9"  =>  "unknown",
+        ], $result);
+    }
+    public function testGetMultiple5()
+    {
         $this->expectException("Psr\SimpleCache\InvalidArgumentException");
         $this->expectExceptionMessage("Invalid keys, must be iterable");
         $this->pool->getMultiple(new \DateTime);
     }
-    public function testGetMultiple5()
+    public function testGetMultiple6()
     {
         $this->expectException("Psr\Cache\InvalidArgumentException");
         $this->expectExceptionMessage("Cache key must be a string, integer given");
