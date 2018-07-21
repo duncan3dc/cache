@@ -104,7 +104,7 @@ class Item implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param int|\DateInterval $time The period of time from the present after which the item MUST be considered expired
+     * @param int|\DateInterval $time The period of time from now after which the item MUST be considered expired
      *
      * @return $this
      */

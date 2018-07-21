@@ -248,7 +248,7 @@ abstract class AbstractPoolTest extends TestCase
     {
         $this->expectException("Psr\SimpleCache\InvalidArgumentException");
         $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->getMultiple(new \DateTime);
+        $this->pool->getMultiple(new \DateTime());
     }
     public function testGetMultiple6()
     {
@@ -272,7 +272,7 @@ abstract class AbstractPoolTest extends TestCase
     {
         $this->expectException("Psr\Cache\CacheException");
         $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->setMultiple(new \DateTime);
+        $this->pool->setMultiple(new \DateTime());
     }
     public function testSetMultiple3()
     {
@@ -300,7 +300,7 @@ abstract class AbstractPoolTest extends TestCase
     {
         $this->expectException(CacheKeyException::class);
         $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->DeleteMultiple(new \DateTime);
+        $this->pool->DeleteMultiple(new \DateTime());
     }
     public function testDeleteMultiple3()
     {

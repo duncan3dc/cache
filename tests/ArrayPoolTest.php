@@ -9,6 +9,6 @@ class ArrayPoolTest extends AbstractPoolTest
 {
     protected function getPool(): CacheInterface
     {
-        return new ArrayPool;
+        return new ArrayPool();
     }
 }

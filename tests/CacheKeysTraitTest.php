@@ -12,7 +12,7 @@ class CacheKeysTraitTest extends TestCase
 
     public function setUp()
     {
-        $this->cache = new CacheKeys;
+        $this->cache = new CacheKeys();
     }
 
 
@@ -34,7 +34,7 @@ class CacheKeysTraitTest extends TestCase
         yield [false, "Cache key must be a string"];
         yield [null, "Cache key must be a string"];
         yield [[], "Cache key must be a string"];
-        yield [new \DateTime, "Cache key must be a string"];
+        yield [new \DateTime(), "Cache key must be a string"];
     }
     /**
      * @dataProvider validateKeyProvider

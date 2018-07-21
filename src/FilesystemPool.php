@@ -69,10 +69,8 @@ class FilesystemPool implements CacheInterface
         $this->validateKey($key);
 
         if ($this->hasItem($key)) {
-
             $data = file_get_contents($this->getPath($key));
             if ($data !== false) {
-
                 $item = unserialize($data, [
                     "allowed_classes"   =>  [Item::class],
                 ]);

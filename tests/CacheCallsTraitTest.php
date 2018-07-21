@@ -14,7 +14,7 @@ class CacheCallsTraitTest extends TestCase
 
     public function setUp()
     {
-        $this->instance = new CacheCalls;
+        $this->instance = new CacheCalls();
     }
 
 
@@ -48,7 +48,7 @@ class CacheCallsTraitTest extends TestCase
 
     public function testMethodDoesntExist()
     {
-        $ini = new State;
+        $ini = new State();
         $ini->set("max_execution_time", "1");
         $ini->set("xdebug.max_nesting_level", "30");
 
