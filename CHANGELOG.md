@@ -5,6 +5,18 @@ Changelog
 
 --------
 
+## 0.6.0 - 2018-07-21
+
+### Fixed
+
+* [General] TTL is now supported everywhere.
+
+### Changed
+
+* [Support] Drop support for PHP 7.0
+
+--------
+
 ## 0.5.0 - 2018-05-30
 
 ### Fixed
