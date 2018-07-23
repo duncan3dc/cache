@@ -5,6 +5,14 @@ Changelog
 
 --------
 
+## 0.6.1 - 2018-07-23
+
+### Fixed
+
+* [FilesystemPool] Attempt to create the parent directories of the cache.
+
+--------
+
 ## 0.6.0 - 2018-07-21
 
 ### Fixed

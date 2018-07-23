@@ -35,7 +35,7 @@ class FilesystemPool implements CacheInterface
         $this->path = $path;
 
         if (!is_dir($this->path)) {
-            $result = mkdir($this->path);
+            $result = mkdir($this->path, 0777, true);
             if ($result === true) {
                 chmod($this->path, 0777);
             }
