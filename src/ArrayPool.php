@@ -6,7 +6,7 @@ use duncan3dc\Cache\Exceptions\CacheKeyException;
 use Psr\Cache\CacheItemInterface;
 use function array_key_exists;
 
-class ArrayPool implements CacheInterface
+final class ArrayPool implements CacheInterface
 {
     use CacheKeyTrait;
     use SimpleCacheTrait;

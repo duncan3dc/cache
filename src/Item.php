@@ -5,7 +5,7 @@ namespace duncan3dc\Cache;
 use Psr\Cache\CacheItemInterface;
 use function time;
 
-class Item implements CacheItemInterface
+final class Item implements CacheItemInterface
 {
     /**
      * @var string The unique key of this item.

@@ -15,7 +15,7 @@ use function serialize;
 use function unlink;
 use function unserialize;
 
-class FilesystemPool implements CacheInterface
+final class FilesystemPool implements CacheInterface
 {
     use CacheKeyTrait;
     use SimpleCacheTrait;
