@@ -3,6 +3,7 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\CacheInterface;
+use duncan3dc\Cache\Exceptions\CacheException;
 use duncan3dc\Cache\FilesystemPool;
 use duncan3dc\ObjectIntruder\Intruder;
 use function rmdir;
@@ -56,5 +57,20 @@ class FilesystemPoolTest extends AbstractPoolTest
         $result = $intruder->getPath($key);
 
         $this->assertSame("{$this->path}/{$path}", $result);
+    }
+
+
+    public function testInvalidObject()
+    {
+        $pool = $this->getPool();
+
+        $intruder = new Intruder($pool);
+        $path = $intruder->getPath("trivium");
+
+        file_put_contents($path, serialize(new \DateTime()));
+
+        $this->expectException(CacheException::class);
+        $this->expectExceptionMessage("Unexpected object during deserialization: DateTime");
+        $pool->getItem("trivium");
     }
 }

@@ -372,4 +372,33 @@ abstract class AbstractPoolTest extends TestCase
         $this->expectExceptionMessage("Cache key must be a string, integer given");
         $this->pool->has(123);
     }
+
+
+    public function testCustomItem1()
+    {
+        $item = new CustomItem("coheed", "cambria");
+        $this->pool->save($item);
+
+        $result = $this->pool->getItem("coheed");
+
+        $this->assertInstanceOf(CustomItem::class, $result);
+    }
+    public function testCustomItem2()
+    {
+        $item = new CustomItem("coheed", "cambria");
+        $this->pool->save($item);
+
+        $result = $this->pool->getItem("coheed");
+
+        $this->assertSame("cambria", $result->get());
+    }
+    public function testCustomItem3()
+    {
+        $item = new CustomItem("coheed", "cambria");
+        $this->pool->save($item);
+
+        $result = $this->pool->get("coheed");
+
+        $this->assertSame("cambria", $result);
+    }
 }

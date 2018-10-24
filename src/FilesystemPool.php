@@ -2,6 +2,7 @@
 
 namespace duncan3dc\Cache;
 
+use duncan3dc\Cache\Exceptions\CacheException;
 use duncan3dc\Cache\Exceptions\CacheKeyException;
 use Psr\Cache\CacheItemInterface;
 use function chmod;
@@ -62,7 +63,7 @@ final class FilesystemPool implements CacheInterface
      * @param string $key The key for which to return the corresponding Cache Item.
      *
      * @return CacheItemInterface
-     * @throws CacheKeyException
+     * @throws CacheKeyException|CacheException
      */
     public function getItem($key)
     {
@@ -72,12 +73,14 @@ final class FilesystemPool implements CacheInterface
             $data = file_get_contents($this->getPath($key));
             if ($data !== false) {
                 $item = unserialize($data, [
-                    'allowed_classes'   =>  true,
+                    "allowed_classes" => true,
                 ]);
 
-                if ($item instanceof Item) {
-                    return $item;
+                if (!$item instanceof CacheItemInterface) {
+                    throw new CacheException("Unexpected object during deserialization: " . get_class($item));
                 }
+
+                return $item;
             }
         }
 
