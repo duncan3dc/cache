@@ -72,7 +72,7 @@ final class FilesystemPool implements CacheInterface
             $data = file_get_contents($this->getPath($key));
             if ($data !== false) {
                 $item = unserialize($data, [
-                    "allowed_classes"   =>  [Item::class],
+                    'allowed_classes'   =>  true,
                 ]);
 
                 if ($item instanceof Item) {
