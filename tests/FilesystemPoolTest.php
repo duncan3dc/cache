@@ -18,7 +18,7 @@ class FilesystemPoolTest extends AbstractPoolTest
     private $path;
 
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->parent = sys_get_temp_dir() . \DIRECTORY_SEPARATOR . "duncan3dc-cache-phpunit";
         $this->path = $this->parent . \DIRECTORY_SEPARATOR . "sub-directory";
@@ -26,7 +26,7 @@ class FilesystemPoolTest extends AbstractPoolTest
         parent::setUp();
     }
 
-    public function tearDown()
+    public function tearDown(): void
     {
         parent::tearDown();
 
