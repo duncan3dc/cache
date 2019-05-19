@@ -37,7 +37,8 @@
             "vendor/bin/composer-require-checker",
             "vendor/bin/phpstan analyse --level=max src",
             "vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests",
-            "vendor/bin/phpcs"
+            "vendor/bin/phpcs",
+            "@composer validate --strict"
         ]
     }
 }
