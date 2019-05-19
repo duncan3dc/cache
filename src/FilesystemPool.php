@@ -136,7 +136,12 @@ final class FilesystemPool implements CacheInterface
     {
         $result = true;
 
-        foreach (glob("{$this->path}/*.cache") as $filename) {
+        $files = glob("{$this->path}/*.cache");
+        if ($files === false) {
+            return true;
+        }
+
+        foreach ($files as $filename) {
             if (!unlink($filename)) {
                 $result = false;
             }
