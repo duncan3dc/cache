@@ -19,10 +19,21 @@ install:
   - composer update $COMPOSER_OPTS
 
 script:
-  - composer test
+  - vendor/bin/phpunit
+  - vendor/bin/composer-require-checker
 
 jobs:
   include:
+
+    - stage: coding standards
+      script:
+        - vendor/bin/phpcs
+
+    - stage: code quality
+      script:
+        - vendor/bin/phpstan analyse --level=max src
+        - vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests
+
     - stage: coverage
       script:
         - vendor/bin/phpunit --coverage-clover=coverage.xml
