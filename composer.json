@@ -22,7 +22,7 @@
         "maglnet/composer-require-checker": "^1.0",
         "mockery/mockery": "^1.1",
         "phpstan/phpstan": "^0.10.1",
-        "squizlabs/php_codesniffer": "^3.3.1",
+        "squizlabs/php_codesniffer": "^3.4",
         "phpunit/phpunit": "^8.1"
     },
     "autoload": {
@@ -37,7 +37,7 @@
             "vendor/bin/composer-require-checker",
             "vendor/bin/phpstan analyse --level=max src",
             "vendor/bin/phpstan analyse --level=max --configuration=phpstan-tests.neon tests",
-            "vendor/bin/phpcs --standard=PSR1,PSR2,PSR12 --exclude=PSR2.Methods.MethodDeclaration,PSR2.Classes.PropertyDeclaration src tests"
+            "vendor/bin/phpcs"
         ]
     }
 }
