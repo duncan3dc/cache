@@ -121,15 +121,11 @@ final class ArrayPool implements CacheInterface
     {
         $this->validateKeys($keys);
 
-        $result = true;
-
         foreach ($keys as $key) {
-            if (!$this->deleteItem($key)) {
-                $result = false;
-            }
+            $this->deleteItem($key);
         }
 
-        return $result;
+        return true;
     }
 
 
