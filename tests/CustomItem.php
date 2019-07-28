@@ -3,6 +3,7 @@
 namespace duncan3dc\CacheTests;
 
 use Psr\Cache\CacheItemInterface;
+use function is_numeric;
 use function time;
 
 class CustomItem implements CacheItemInterface
@@ -18,7 +19,7 @@ class CustomItem implements CacheItemInterface
     private $value;
 
     /**
-     * @var int The expiration time of this item.
+     * @var int|null The expiration time of this item.
      */
     private $expiration;
 
@@ -88,7 +89,11 @@ class CustomItem implements CacheItemInterface
      */
     public function expiresAt($expiration)
     {
-        $this->expiration = $expiration->getTimestamp();
+        if ($expiration instanceof \DateTimeInterface) {
+            $this->expiration = $expiration->getTimestamp();
+        } else {
+            $this->expiration = $expiration;
+        }
 
         return $this;
     }
@@ -103,7 +108,11 @@ class CustomItem implements CacheItemInterface
             $time = (int) $time->format("%r%s");
         }
 
-        $this->expiration = time() + $time;
+        if (is_numeric($time)) {
+            $this->expiration = time() + $time;
+        } else {
+            $this->expiration = $time;
+        }
 
         return $this;
     }

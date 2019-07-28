@@ -70,13 +70,30 @@ class ItemTest extends TestCase
     }
 
 
-    public function testExpiresAt()
+    public function testExpiresAt1()
     {
         $item = new Item("test", "value");
         $this->assertSame(true, $item->isHit());
 
         $item->expiresAt(new \DateTime("2018-07-04 13:27:01"));
         $this->assertSame(false, $item->isHit());
+    }
+    public function testExpiresAt2(): void
+    {
+        $item = new Item("test", "value");
+        $item->expiresAt(new \DateTime("2018-07-04 13:27:01"));
+        $this->assertSame(false, $item->isHit());
+
+        $item->expiresAt(null);
+        $this->assertSame(true, $item->isHit());
+    }
+    public function testExpiresAt3(): void
+    {
+        $item = new Item("test", "value");
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unexpected argument type passed to expiresAt()");
+        $item->expiresAt("balloon");
     }
 
 
@@ -97,5 +114,22 @@ class ItemTest extends TestCase
         $interval->invert = 1;
         $item->expiresAfter($interval);
         $this->assertSame(false, $item->isHit());
+    }
+    public function testExpiresAfter3(): void
+    {
+        $item = new Item("test", "value");
+        $item->expiresAfter(-7);
+        $this->assertSame(false, $item->isHit());
+
+        $item->expiresAfter(null);
+        $this->assertSame(true, $item->isHit());
+    }
+    public function testExpiresAfter4(): void
+    {
+        $item = new Item("test", "value");
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage("Unexpected argument type passed to expiresAfter()");
+        $item->expiresAfter("balloon");
     }
 }

@@ -9,3 +9,5 @@ parameters:
     - '/Call to an undefined method duncan3dc\\CacheTests\\CacheCalls::/'
 
     - '/Parameter #1 .* of method Psr\\SimpleCache\\CacheInterface::/'
+
+    - '/Parameter #1 .* of method duncan3dc\\Cache\\Item::expires(At|After)\(\) expects Date[A-Za-z]+(|int)?|null, string given\./'

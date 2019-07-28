@@ -3,6 +3,7 @@
 namespace duncan3dc\Cache;
 
 use Psr\Cache\CacheItemInterface;
+use function is_numeric;
 use function time;
 
 final class Item implements CacheItemInterface
@@ -18,7 +19,7 @@ final class Item implements CacheItemInterface
     private $value;
 
     /**
-     * @var int The expiration time of this item.
+     * @var int|null The expiration time of this item.
      */
     private $expiration;
 
@@ -99,13 +100,19 @@ final class Item implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param \DateTimeInterface $expiration The point in time after which the item MUST be considered expired
+     * @param \DateTimeInterface|null $expiration The point in time after which the item MUST be considered expired
      *
      * @return $this
      */
     public function expiresAt($expiration)
     {
-        $this->expiration = $expiration->getTimestamp();
+        if ($expiration instanceof \DateTimeInterface) {
+            $this->expiration = $expiration->getTimestamp();
+        } elseif ($expiration === null) {
+            $this->expiration = null;
+        } else {
+            throw new \InvalidArgumentException("Unexpected argument type passed to expiresAt()");
+        }
 
         return $this;
     }
@@ -114,7 +121,7 @@ final class Item implements CacheItemInterface
     /**
      * Sets the expiration time for this cache item.
      *
-     * @param int|\DateInterval $time The period of time from now after which the item MUST be considered expired
+     * @param int|\DateInterval|null $time The period of time from now after which the item MUST be considered expired
      *
      * @return $this
      */
@@ -124,7 +131,13 @@ final class Item implements CacheItemInterface
             $time = (int) $time->format("%r%s");
         }
 
-        $this->expiration = time() + $time;
+        if ($time === null) {
+            $this->expiration = null;
+        } elseif (is_numeric($time)) {
+            $this->expiration = time() + $time;
+        } else {
+            throw new \InvalidArgumentException("Unexpected argument type passed to expiresAfter()");
+        }
 
         return $this;
     }
