@@ -3,6 +3,7 @@
 namespace duncan3dc\CacheTests;
 
 use Psr\Cache\CacheItemInterface;
+
 use function is_numeric;
 use function time;
 

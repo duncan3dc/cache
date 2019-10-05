@@ -4,6 +4,7 @@ namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
 use PHPUnit\Framework\TestCase;
+
 use function str_repeat;
 
 class CacheKeysTraitTest extends TestCase

@@ -5,6 +5,7 @@ namespace duncan3dc\Cache;
 use duncan3dc\Cache\Exceptions\CacheException;
 use duncan3dc\Cache\Exceptions\CacheKeyException;
 use Psr\Cache\CacheItemInterface;
+
 use function chmod;
 use function file_exists;
 use function file_get_contents;

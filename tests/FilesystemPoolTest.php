@@ -6,6 +6,7 @@ use duncan3dc\Cache\CacheInterface;
 use duncan3dc\Cache\Exceptions\CacheException;
 use duncan3dc\Cache\FilesystemPool;
 use duncan3dc\ObjectIntruder\Intruder;
+
 use function rmdir;
 use function sys_get_temp_dir;
 

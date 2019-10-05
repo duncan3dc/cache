@@ -4,6 +4,7 @@ namespace duncan3dc\Cache;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
 use Psr\Cache\CacheItemInterface;
+
 use function array_key_exists;
 
 final class ArrayPool implements CacheInterface

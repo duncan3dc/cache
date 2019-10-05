@@ -3,6 +3,7 @@
 namespace duncan3dc\Cache;
 
 use Psr\SimpleCache\CacheInterface as SimpleCacheInterface;
+
 use function get_class;
 use function method_exists;
 use function print_r;

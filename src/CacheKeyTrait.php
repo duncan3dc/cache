@@ -3,6 +3,7 @@
 namespace duncan3dc\Cache;
 
 use duncan3dc\Cache\Exceptions\CacheKeyException;
+
 use function is_array;
 use function is_string;
 use function preg_match;
