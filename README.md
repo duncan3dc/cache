@@ -24,7 +24,7 @@ There are 2 cache providers available, one is the local filesystem and the other
 Using the `FilesystemPool` will persist data forever (or until the filesystem is purged).
 
 ```php
-$cache = new \duncan3dc\Cache\FilesystemPool;
+$cache = new \duncan3dc\Cache\FilesystemPool(sys_get_temp_dir());
 
 # The $cache object implements PSR-6
 $userData = $cache->getItem("user_data")->get();
@@ -36,7 +36,7 @@ $userData = $cache->get("user_data");
 Using the `ArrayPool` will not persist data beyond the current request.
 
 ```php
-$cache = new \duncan3dc\Cache\ArrayPool;
+$cache = new \duncan3dc\Cache\ArrayPool();
 
 # The $cache object implements PSR-6
 $userData = $cache->getItem("user_data")->get();
