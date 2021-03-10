@@ -18,13 +18,13 @@ abstract class AbstractPoolTest extends TestCase
     abstract protected function getPool(): CacheInterface;
 
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->pool = $this->getPool();
     }
 
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->pool->clear();
     }

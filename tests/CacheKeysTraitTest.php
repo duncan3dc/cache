@@ -12,7 +12,7 @@ class CacheKeysTraitTest extends TestCase
     /** @var CacheKeys */
     private $cache;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cache = new CacheKeys();
     }
