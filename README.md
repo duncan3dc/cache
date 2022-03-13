@@ -2,7 +2,7 @@
 A simple [PSR-6](http://www.php-fig.org/psr/psr-6/)/[PSR-16](http://www.php-fig.org/psr/psr-16/) compatible disk cache for PHP
  
 [![release](https://poser.pugx.org/duncan3dc/cache/version.svg)](https://packagist.org/packages/duncan3dc/cache)
-[![build](https://travis-ci.org/duncan3dc/cache.svg?branch=master)](https://travis-ci.org/duncan3dc/cache)
+[![build](https://github.com/duncan3dc/cache/workflows/.github/workflows/buildcheck.yml/badge.svg?branch=main)](https://github.com/duncan3dc/cache/actions?query=branch%3Amain+workflow%3A.github%2Fworkflows%2Fbuildcheck.yml)
 [![coverage](https://codecov.io/gh/duncan3dc/cache/graph/badge.svg)](https://codecov.io/gh/duncan3dc/cache)
 
 
