@@ -6,7 +6,6 @@ use Psr\Cache\CacheItemInterface;
 
 trait SimpleCacheTrait
 {
-
     /**
      * Fetches a value from the cache.
      *
