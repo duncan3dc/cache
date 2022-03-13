@@ -5,6 +5,22 @@ Changelog
 
 --------
 
+## 1.0.0 - 2022-03-13
+
+### Fixed
+
+* [General] Allow objects to be stored in cache. [#2](https://github.com/duncan3dc/cache/pull/2)
+
+--------
+
+### Changed
+
+* [General] Classes marked as final to prevent inheritance issues.
+* [Support] Added support for PHP 7.3, 7.4, 8.0, and 8.1.
+* [Support] Dropped support for PHP 7.1 and 7.2.
+
+--------
+
 ## 0.6.1 - 2018-07-23
 
 ### Fixed
