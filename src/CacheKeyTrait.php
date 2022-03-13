@@ -38,12 +38,10 @@ trait CacheKeyTrait
     /**
      * Check the passed parameter to ensure it's a valid iterable.
      *
-     * @param array|\Traversable $keys
-     *
-     * @return void
+     * @param iterable<mixed>|null $keys
      * @throws CacheKeyException
      */
-    private function validateKeys($keys)
+    private function validateKeys($keys): void
     {
         if (is_array($keys)) {
             return;

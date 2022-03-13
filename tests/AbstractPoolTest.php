@@ -30,19 +30,19 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testGetItem1()
+    public function testGetItem1(): void
     {
         $episode7 = new Item("episode7", "the force awakens");
         $this->assertTrue($this->pool->save($episode7));
         $this->assertSame("the force awakens", $this->pool->getItem("episode7")->get());
     }
-    public function testGetItem2()
+    public function testGetItem2(): void
     {
         $this->assertNull($this->pool->getItem("episode8")->get());
     }
 
 
-    public function testGetItems()
+    public function testGetItems(): void
     {
         $this->pool->save(new Item("episode4", "a new hope"));
         $this->pool->save(new Item("episode5", "the empire strikes back"));
@@ -60,18 +60,18 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testHasItem1()
+    public function testHasItem1(): void
     {
         $this->pool->save(new Item("episode7", "the force awakens"));
         $this->assertTrue($this->pool->hasItem("episode7"));
     }
-    public function testHasItem2()
+    public function testHasItem2(): void
     {
         $this->assertFalse($this->pool->hasItem("episode8"));
     }
 
 
-    public function testClear()
+    public function testClear(): void
     {
         $this->pool->set("one", 1);
         $this->pool->set("two", 2);
@@ -85,7 +85,7 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testDeleteItem()
+    public function testDeleteItem(): void
     {
         $this->testSave();
 
@@ -94,7 +94,7 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testDeleteItems()
+    public function testDeleteItems(): void
     {
         $this->testSave();
 
@@ -113,7 +113,7 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testSave()
+    public function testSave(): Item
     {
         $item = new Item("luke", "skywalker");
 
@@ -124,7 +124,7 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testSaveDeferred()
+    public function testSaveDeferred(): void
     {
         $item = new Item("luke", "skywalker");
 
@@ -133,27 +133,27 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testCommit()
+    public function testCommit(): void
     {
         $this->assertTrue($this->pool->commit());
     }
 
 
-    public function testGet1()
+    public function testGet1(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
         $this->assertSame("the force awakens", $this->pool->get("episode7"));
     }
-    public function testGet2()
+    public function testGet2(): void
     {
         $this->assertNull($this->pool->get("episode8"));
     }
-    public function testGet3()
+    public function testGet3(): void
     {
         $result = $this->pool->get("episode8", "the last jedi");
         $this->assertSame("the last jedi", $result);
     }
-    public function testGet4()
+    public function testGet4(): void
     {
         $this->expectException(CacheKeyException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
@@ -161,13 +161,13 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testSet1()
+    public function testSet1(): void
     {
         $result = $this->pool->set("snarky_puppy", "culcha vulcha");
         $this->assertTrue($result);
         $this->assertSame("culcha vulcha", $this->pool->get("snarky_puppy", "shofukan"));
     }
-    public function testSet2()
+    public function testSet2(): void
     {
         $this->expectException(CacheKeyException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
@@ -175,26 +175,26 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testSetWithTtl1()
+    public function testSetWithTtl1(): void
     {
         $result = $this->pool->set("novallo", "white phoenix", 7);
         $this->assertTrue($result);
         $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
     }
-    public function testSetWithTtl2()
+    public function testSetWithTtl2(): void
     {
         $result = $this->pool->set("novallo", "white phoenix", -7);
         $this->assertTrue($result);
         $this->assertSame("betty phage", $this->pool->get("novallo", "betty phage"));
     }
-    public function testSetWithTtl3()
+    public function testSetWithTtl3(): void
     {
         $interval = new \DateInterval("PT7S");
         $result = $this->pool->set("novallo", "white phoenix", $interval);
         $this->assertTrue($result);
         $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
     }
-    public function testSetWithTtl4()
+    public function testSetWithTtl4(): void
     {
         $interval = new \DateInterval("PT7S");
         $interval->invert = 1;
@@ -204,28 +204,28 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testDelete1()
+    public function testDelete1(): void
     {
         $this->pool->set("snarky_puppy", "culcha vulcha");
         $result = $this->pool->delete("snarky_puppy");
         $this->assertTrue($result);
         $this->assertFalse($this->pool->has("snarky_puppy"));
     }
-    public function testDelete2()
+    public function testDelete2(): void
     {
         $result = $this->pool->delete("does-not-exist");
         $this->assertTrue($result);
         $this->assertFalse($this->pool->has("does-not-exist"));
     }
-    public function testDelete3()
+    public function testDelete3(): void
     {
-        $this->expectException("Psr\Cache\CacheException");
+        $this->expectException(\Psr\Cache\CacheException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
         $this->pool->delete(404);
     }
 
 
-    public function testGetMultiple1()
+    public function testGetMultiple1(): void
     {
         $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"]);
 
@@ -235,7 +235,7 @@ abstract class AbstractPoolTest extends TestCase
             "episode9"  =>  null,
         ], $result);
     }
-    public function testGetMultiple2()
+    public function testGetMultiple2(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
 
@@ -247,7 +247,7 @@ abstract class AbstractPoolTest extends TestCase
             "episode9"  =>  null,
         ], $result);
     }
-    public function testGetMultiple3()
+    public function testGetMultiple3(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
         $this->assertTrue($this->pool->set("episode8", "the last jedi"));
@@ -260,7 +260,7 @@ abstract class AbstractPoolTest extends TestCase
             "episode9"  =>  "unknown",
         ], $result);
     }
-    public function testGetMultiple4()
+    public function testGetMultiple4(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
         $this->assertTrue($this->pool->set("episode8", "the last jedi"));
@@ -273,21 +273,21 @@ abstract class AbstractPoolTest extends TestCase
             "episode9"  =>  "unknown",
         ], $result);
     }
-    public function testGetMultiple5()
+    public function testGetMultiple5(): void
     {
-        $this->expectException("Psr\SimpleCache\InvalidArgumentException");
+        $this->expectException(\Psr\SimpleCache\InvalidArgumentException::class);
         $this->expectExceptionMessage("Invalid keys, must be iterable");
         $this->pool->getMultiple(new \DateTime());
     }
-    public function testGetMultiple6()
+    public function testGetMultiple6(): void
     {
-        $this->expectException("Psr\Cache\InvalidArgumentException");
+        $this->expectException(\Psr\Cache\InvalidArgumentException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
         $this->pool->getMultiple(["ok", 77]);
     }
 
 
-    public function testSetMultiple1()
+    public function testSetMultiple1(): void
     {
         $this->assertTrue($this->pool->setMultiple([
             "episode4"  =>  "a new hope",
@@ -297,21 +297,21 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertSame("a new hope", $this->pool->get("episode4"));
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
     }
-    public function testSetMultiple2()
+    public function testSetMultiple2(): void
     {
-        $this->expectException("Psr\Cache\CacheException");
+        $this->expectException(\Psr\Cache\CacheException::class);
         $this->expectExceptionMessage("Invalid keys, must be iterable");
         $this->pool->setMultiple(new \DateTime());
     }
-    public function testSetMultiple3()
+    public function testSetMultiple3(): void
     {
-        $this->expectException("Psr\SimpleCache\CacheException");
+        $this->expectException(\Psr\SimpleCache\CacheException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
         $this->pool->setMultiple(["ok" => 1, 77 => 2]);
     }
 
 
-    public function testDeleteMultiple1()
+    public function testDeleteMultiple1(): void
     {
         $this->assertTrue($this->pool->setMultiple([
             "episode4"  =>  "a new hope",
@@ -325,13 +325,13 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
         $this->assertNull($this->pool->get("episode6"));
     }
-    public function testDeleteMultiple2()
+    public function testDeleteMultiple2(): void
     {
         $this->expectException(CacheKeyException::class);
         $this->expectExceptionMessage("Invalid keys, must be iterable");
         $this->pool->DeleteMultiple(new \DateTime());
     }
-    public function testDeleteMultiple3()
+    public function testDeleteMultiple3(): void
     {
         $this->expectException(CacheException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
@@ -339,18 +339,18 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testHas1()
+    public function testHas1(): void
     {
         $result = $this->pool->has("no-such-key");
         $this->assertFalse($result);
     }
-    public function testHas2()
+    public function testHas2(): void
     {
         $this->pool->set("haken", "affinity");
         $result = $this->pool->has("haken");
         $this->assertTrue($result);
     }
-    public function testHas3()
+    public function testHas3(): void
     {
         $this->pool->set("afi", "decemberunderground");
         $this->assertTrue($this->pool->has("afi"));
@@ -358,7 +358,7 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->has("afi");
         $this->assertFalse($result);
     }
-    public function testHas4()
+    public function testHas4(): void
     {
         $this->pool->set("periphery", "clear");
         $this->assertTrue($this->pool->has("periphery"));
@@ -366,7 +366,7 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->has("periphery");
         $this->assertFalse($result);
     }
-    public function testHas5()
+    public function testHas5(): void
     {
         $this->expectException(CacheKeyException::class);
         $this->expectExceptionMessage("Cache key must be a string, integer given");
@@ -374,7 +374,7 @@ abstract class AbstractPoolTest extends TestCase
     }
 
 
-    public function testCustomItem1()
+    public function testCustomItem1(): void
     {
         $item = new CustomItem("coheed", "cambria");
         $this->pool->save($item);
@@ -383,7 +383,7 @@ abstract class AbstractPoolTest extends TestCase
 
         $this->assertInstanceOf(CustomItem::class, $result);
     }
-    public function testCustomItem2()
+    public function testCustomItem2(): void
     {
         $item = new CustomItem("coheed", "cambria");
         $this->pool->save($item);
@@ -392,7 +392,7 @@ abstract class AbstractPoolTest extends TestCase
 
         $this->assertSame("cambria", $result->get());
     }
-    public function testCustomItem3()
+    public function testCustomItem3(): void
     {
         $item = new CustomItem("coheed", "cambria");
         $this->pool->save($item);

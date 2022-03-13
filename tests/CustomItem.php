@@ -26,7 +26,8 @@ class CustomItem implements CacheItemInterface
 
 
     /**
-     * @inheritDoc
+     * @param string $key
+     * @param mixed $value
      */
     public function __construct($key, $value = null)
     {

@@ -9,8 +9,13 @@ class CacheCalls
 {
     use CacheCallsTrait;
 
+    /** @var int */
     private $counter1 = 0;
+
+    /** @var int */
     private $counter2 = 0;
+
+    /** @var int */
     private $counter3 = 0;
 
 
@@ -42,13 +47,13 @@ class CacheCalls
     }
 
 
-    public function manualOnce()
+    public function manualOnce(): string
     {
         return $this->cacheMethod("manualOnce");
     }
 
 
-    public function _manualOnce()
+    public function _manualOnce(): string
     {
         ++$this->counter3;
         return "called_{$this->counter3}_times";

@@ -42,6 +42,9 @@ class FilesystemPoolTest extends AbstractPoolTest
     }
 
 
+    /**
+     * @return array<array<string>>
+     */
     public function pathProvider(): array
     {
         return [
@@ -51,7 +54,7 @@ class FilesystemPoolTest extends AbstractPoolTest
     /**
      * @dataProvider pathProvider
      */
-    public function testGetPath(string $key, string $path)
+    public function testGetPath(string $key, string $path): void
     {
         $intruder = new Intruder($this->getPool());
 
@@ -61,7 +64,7 @@ class FilesystemPoolTest extends AbstractPoolTest
     }
 
 
-    public function testInvalidObject()
+    public function testInvalidObject(): void
     {
         $pool = $this->getPool();
 

@@ -18,20 +18,20 @@ class CacheCallsTraitTest extends TestCase
     }
 
 
-    public function testNormalMethod()
+    public function testNormalMethod(): void
     {
         $this->assertSame("ok", $this->instance->normalMethod());
     }
 
 
-    public function testCachedMethod()
+    public function testCachedMethod(): void
     {
         $this->assertSame("called_1_times", $this->instance->justOnce());
         $this->assertSame("called_1_times", $this->instance->justOnce());
     }
 
 
-    public function testWithParams()
+    public function testWithParams(): void
     {
         $this->assertSame("one_two_three_1", $this->instance->withParams("one", "two", "three"));
         $this->assertSame("one_two_new_2", $this->instance->withParams("one", "two", "new"));
@@ -39,14 +39,14 @@ class CacheCallsTraitTest extends TestCase
     }
 
 
-    public function testManualMethod()
+    public function testManualMethod(): void
     {
         $this->assertSame("called_1_times", $this->instance->manualOnce());
         $this->assertSame("called_1_times", $this->instance->manualOnce());
     }
 
 
-    public function testMethodDoesntExist()
+    public function testMethodDoesntExist(): void
     {
         $ini = new State();
         $ini->set("max_execution_time", "1");
@@ -61,7 +61,7 @@ class CacheCallsTraitTest extends TestCase
     }
 
 
-    public function testSetCacheCallsPool()
+    public function testSetCacheCallsPool(): void
     {
         $pool = Mockery::mock(CacheInterface::class);
         $pool->shouldReceive("has")->once()->andReturn(false);

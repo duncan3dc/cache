@@ -2,12 +2,15 @@ parameters:
   ignoreErrors:
     - '/Call to an undefined method duncan3dc\\ObjectIntruder\\Intruder::/'
 
-    - '/Parameter #[0-9] .* of .* expects .*Mockery\\MockInterface given/'
-    - '/Call to an undefined method Mockery\\ExpectationInterface|Mockery\\HigherOrderMessage::andReturn\(\)/'
-
     - '/Call to protected method .* of class duncan3dc\\CacheTests\\CacheKeys/'
     - '/Call to an undefined method duncan3dc\\CacheTests\\CacheCalls::/'
 
     - '/Parameter #1 .* of method Psr\\SimpleCache\\CacheInterface::/'
 
     - '/Parameter #1 .* of method duncan3dc\\Cache\\Item::expires(At|After)\(\) expects Date[A-Za-z]+(|int)?|null, string given\./'
+
+    - '/Parameter #1 \$exception of method PHPUnit\\Framework\\TestCase::expectException\(\) expects class-string<Throwable>, string given\.$/'
+
+includes:
+	- vendor/phpstan/phpstan-mockery/extension.neon
+	- vendor/phpstan/phpstan-phpunit/extension.neon

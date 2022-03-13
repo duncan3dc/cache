@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
-    public function testGetKey()
+    public function testGetKey(): void
     {
         $item = new Item("test");
 
@@ -15,7 +15,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testGetNoValue()
+    public function testGetNoValue(): void
     {
         $item = new Item("test");
 
@@ -23,7 +23,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testGetBool()
+    public function testGetBool(): void
     {
         $item = new Item("test", false);
 
@@ -31,7 +31,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testGetString()
+    public function testGetString(): void
     {
         $item = new Item("test", "true");
 
@@ -39,7 +39,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testSet()
+    public function testSet(): void
     {
         $item = new Item("test");
 
@@ -54,14 +54,14 @@ class ItemTest extends TestCase
     }
 
 
-    public function testIsHit1()
+    public function testIsHit1(): void
     {
         $item = new Item("test");
         $item->set("ok");
 
         $this->assertTrue($item->isHit());
     }
-    public function testIsHit2()
+    public function testIsHit2(): void
     {
         $item = new Item("test");
 
@@ -69,7 +69,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testExpiresAt1()
+    public function testExpiresAt1(): void
     {
         $item = new Item("test", "value");
         $this->assertSame(true, $item->isHit());
@@ -96,7 +96,7 @@ class ItemTest extends TestCase
     }
 
 
-    public function testExpiresAfter1()
+    public function testExpiresAfter1(): void
     {
         $item = new Item("test", "value");
         $this->assertSame(true, $item->isHit());
@@ -104,7 +104,7 @@ class ItemTest extends TestCase
         $item->expiresAfter(-7);
         $this->assertSame(false, $item->isHit());
     }
-    public function testExpiresAfter2()
+    public function testExpiresAfter2(): void
     {
         $item = new Item("test", "value");
         $this->assertSame(true, $item->isHit());

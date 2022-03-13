@@ -13,7 +13,7 @@ final class ArrayPool implements CacheInterface
     use SimpleCacheTrait;
 
     /**
-     * @var array The array to store the cache data in.
+     * @var array<string, CacheItemInterface> The array to store the cache data in.
      */
     private $data = [];
 
@@ -42,15 +42,13 @@ final class ArrayPool implements CacheInterface
     /**
      * Returns a traversable set of cache items.
      *
-     * @param array $keys An indexed array of keys of items to retrieve.
+     * @param array<string> $keys An indexed array of keys of items to retrieve.
      *
-     * @return iterable
+     * @return iterable<string, CacheItemInterface>
      * @throws CacheKeyException
      */
     public function getItems(array $keys = [])
     {
-        $this->validateKeys($keys);
-
         $result = [];
 
         foreach ($keys as $key) {
@@ -113,15 +111,13 @@ final class ArrayPool implements CacheInterface
     /**
      * Removes multiple items from the pool.
      *
-     * @param array $keys An array of keys that should be removed from the pool
+     * @param array<string> $keys An array of keys that should be removed from the pool
      *
      * @return bool
      * @throws CacheKeyException
      */
     public function deleteItems(array $keys)
     {
-        $this->validateKeys($keys);
-
         foreach ($keys as $key) {
             $this->deleteItem($key);
         }

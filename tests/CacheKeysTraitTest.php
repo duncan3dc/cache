@@ -18,6 +18,9 @@ class CacheKeysTraitTest extends TestCase
     }
 
 
+    /**
+     * @return iterable<array<mixed>>
+     */
     public function validateKeyProvider()
     {
         $keys = [
@@ -41,8 +44,10 @@ class CacheKeysTraitTest extends TestCase
     }
     /**
      * @dataProvider validateKeyProvider
+     * @param mixed $key
+     * @param mixed $expected
      */
-    public function testValidateKey($key, $expected)
+    public function testValidateKey($key, $expected): void
     {
         if ($expected !== null) {
             $this->expectException(CacheKeyException::class);
