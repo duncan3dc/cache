@@ -86,14 +86,6 @@ class ItemTest extends TestCase
         $item->expiresAt(null);
         $this->assertSame(true, $item->isHit());
     }
-    public function testExpiresAt3(): void
-    {
-        $item = new Item("test", "value");
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Unexpected argument type passed to expiresAt()");
-        $item->expiresAt("balloon");
-    }
 
 
     public function testExpiresAfter1(): void
@@ -122,13 +114,5 @@ class ItemTest extends TestCase
 
         $item->expiresAfter(null);
         $this->assertSame(true, $item->isHit());
-    }
-    public function testExpiresAfter4(): void
-    {
-        $item = new Item("test", "value");
-
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Unexpected argument type passed to expiresAfter()");
-        $item->expiresAfter("balloon");
     }
 }

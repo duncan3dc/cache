@@ -14,7 +14,7 @@ trait SimpleCacheTrait
      *
      * @return mixed The value of the item from the cache, or $default in case of cache miss
      */
-    public function get($key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         if ($this->has($key)) {
             /** @var CacheItemInterface $item */
@@ -37,7 +37,7 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function set($key, $value, $ttl = null)
+    public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
     {
         $item = new Item($key, $value);
         if ($ttl !== null) {
@@ -54,7 +54,7 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         return $this->deleteItem($key);
     }
@@ -68,10 +68,8 @@ trait SimpleCacheTrait
      *
      * @return iterable<string, mixed> A list of key => value pairs
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
-        $this->validateKeys($keys);
-
         $result = [];
 
         foreach ($keys as $key) {
@@ -90,10 +88,8 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
     {
-        $this->validateKeys($values);
-
         $result = true;
         foreach ($values as $key => $value) {
             if (!$this->set($key, $value, $ttl)) {
@@ -112,10 +108,8 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple(iterable $keys): bool
     {
-        $this->validateKeys($keys);
-
         $result = true;
         foreach ($keys as $key) {
             if (!$this->delete($key)) {
@@ -134,7 +128,7 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return $this->hasItem($key);
     }

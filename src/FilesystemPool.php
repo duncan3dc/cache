@@ -10,8 +10,11 @@ use function chmod;
 use function file_exists;
 use function file_get_contents;
 use function file_put_contents;
+use function get_class;
+use function gettype;
 use function glob;
 use function is_dir;
+use function is_object;
 use function mkdir;
 use function serialize;
 use function unlink;
@@ -66,7 +69,7 @@ final class FilesystemPool implements CacheInterface
      * @return CacheItemInterface
      * @throws CacheKeyException|CacheException
      */
-    public function getItem($key)
+    public function getItem(string $key): CacheItemInterface
     {
         $this->validateKey($key);
 
@@ -78,7 +81,12 @@ final class FilesystemPool implements CacheInterface
                 ]);
 
                 if (!$item instanceof CacheItemInterface) {
-                    throw new CacheException("Unexpected object during deserialization: " . get_class($item));
+                    if (is_object($item)) {
+                        $type = get_class($item);
+                    } else {
+                        $type = gettype($item);
+                    }
+                    throw new CacheException("Unexpected object during deserialization: " . $type);
                 }
 
                 return $item;
@@ -98,7 +106,7 @@ final class FilesystemPool implements CacheInterface
      * @return iterable<CacheItemInterface>
      * @throws CacheKeyException
      */
-    public function getItems(array $keys = [])
+    public function getItems(array $keys = []): iterable
     {
         $result = [];
 
@@ -118,7 +126,7 @@ final class FilesystemPool implements CacheInterface
      * @return bool
      * @throws CacheKeyException
      */
-    public function hasItem($key)
+    public function hasItem(string $key): bool
     {
         $this->validateKey($key);
 
@@ -131,7 +139,7 @@ final class FilesystemPool implements CacheInterface
      *
      * @return bool
      */
-    public function clear()
+    public function clear(): bool
     {
         $result = true;
 
@@ -158,7 +166,7 @@ final class FilesystemPool implements CacheInterface
      * @return bool
      * @throws CacheKeyException
      */
-    public function deleteItem($key)
+    public function deleteItem(string $key): bool
     {
         $this->validateKey($key);
 
@@ -178,7 +186,7 @@ final class FilesystemPool implements CacheInterface
      * @return bool
      * @throws CacheKeyException
      */
-    public function deleteItems(array $keys)
+    public function deleteItems(array $keys): bool
     {
         $result = true;
 
@@ -200,7 +208,7 @@ final class FilesystemPool implements CacheInterface
      * @return bool
      * @throws CacheKeyException
      */
-    public function save(CacheItemInterface $item)
+    public function save(CacheItemInterface $item): bool
     {
         $key = $item->getKey();
 
@@ -227,7 +235,7 @@ final class FilesystemPool implements CacheInterface
      * @return bool
      * @throws CacheKeyException
      */
-    public function saveDeferred(CacheItemInterface $item)
+    public function saveDeferred(CacheItemInterface $item): bool
     {
         return $this->save($item);
     }
@@ -238,7 +246,7 @@ final class FilesystemPool implements CacheInterface
      *
      * @return bool
      */
-    public function commit()
+    public function commit(): bool
     {
         return true;
     }
