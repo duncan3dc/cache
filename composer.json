@@ -14,12 +14,12 @@
     "require": {
         "psr/cache": "^1.0.1",
         "psr/simple-cache": "^1.0.1",
-        "php": "^7.3 || ^8.0"
+        "php": "^8.0"
     },
     "require-dev": {
-        "duncan3dc/object-intruder": "^0.3.0 || ^1.0",
+        "duncan3dc/object-intruder": "^1.0",
         "duncan3dc/php-ini": "^1.0",
-        "maglnet/composer-require-checker": "^2.0 || ^3.0",
+        "maglnet/composer-require-checker": "^3.8",
         "mockery/mockery": "^1.5",
         "phpstan/phpstan": "^0.12.99",
         "phpstan/phpstan-mockery": "^0.12.14",
