@@ -4,15 +4,12 @@ namespace duncan3dc\CacheTests;
 
 use ArrayIterator;
 use duncan3dc\Cache\CacheInterface;
-use duncan3dc\Cache\Exceptions\CacheException;
-use duncan3dc\Cache\Exceptions\CacheKeyException;
 use duncan3dc\Cache\Item;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractPoolTest extends TestCase
 {
-    /** @var CacheInterface */
-    private $pool;
+    private CacheInterface $pool;
 
 
     abstract protected function getPool(): CacheInterface;
@@ -153,12 +150,6 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->get("episode8", "the last jedi");
         $this->assertSame("the last jedi", $result);
     }
-    public function testGet4(): void
-    {
-        $this->expectException(CacheKeyException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->get(404);
-    }
 
 
     public function testSet1(): void
@@ -166,12 +157,6 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->set("snarky_puppy", "culcha vulcha");
         $this->assertTrue($result);
         $this->assertSame("culcha vulcha", $this->pool->get("snarky_puppy", "shofukan"));
-    }
-    public function testSet2(): void
-    {
-        $this->expectException(CacheKeyException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->set(404, "value");
     }
 
 
@@ -216,12 +201,6 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->delete("does-not-exist");
         $this->assertTrue($result);
         $this->assertFalse($this->pool->has("does-not-exist"));
-    }
-    public function testDelete3(): void
-    {
-        $this->expectException(\Psr\Cache\CacheException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->delete(404);
     }
 
 
@@ -273,18 +252,6 @@ abstract class AbstractPoolTest extends TestCase
             "episode9"  =>  "unknown",
         ], $result);
     }
-    public function testGetMultiple5(): void
-    {
-        $this->expectException(\Psr\SimpleCache\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->getMultiple(new \DateTime());
-    }
-    public function testGetMultiple6(): void
-    {
-        $this->expectException(\Psr\Cache\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->getMultiple(["ok", 77]);
-    }
 
 
     public function testSetMultiple1(): void
@@ -296,18 +263,6 @@ abstract class AbstractPoolTest extends TestCase
 
         $this->assertSame("a new hope", $this->pool->get("episode4"));
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
-    }
-    public function testSetMultiple2(): void
-    {
-        $this->expectException(\Psr\Cache\CacheException::class);
-        $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->setMultiple(new \DateTime());
-    }
-    public function testSetMultiple3(): void
-    {
-        $this->expectException(\Psr\SimpleCache\CacheException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->setMultiple(["ok" => 1, 77 => 2]);
     }
 
 
@@ -324,18 +279,6 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertNull($this->pool->get("episode4"));
         $this->assertSame("the empire strikes back", $this->pool->get("episode5"));
         $this->assertNull($this->pool->get("episode6"));
-    }
-    public function testDeleteMultiple2(): void
-    {
-        $this->expectException(CacheKeyException::class);
-        $this->expectExceptionMessage("Invalid keys, must be iterable");
-        $this->pool->DeleteMultiple(new \DateTime());
-    }
-    public function testDeleteMultiple3(): void
-    {
-        $this->expectException(CacheException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->DeleteMultiple(["ok", 77]);
     }
 
 
@@ -364,13 +307,7 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($this->pool->has("periphery"));
         $this->pool->clear();
         $result = $this->pool->has("periphery");
-        $this->assertFalse($result);
-    }
-    public function testHas5(): void
-    {
-        $this->expectException(CacheKeyException::class);
-        $this->expectExceptionMessage("Cache key must be a string, integer given");
-        $this->pool->has(123);
+        self::assertFalse($result);
     }
 
 

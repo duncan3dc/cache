@@ -9,8 +9,7 @@ use Psr\SimpleCache\CacheInterface;
 
 class CacheCallsTraitTest extends TestCase
 {
-    /** @var CacheCalls */
-    private $instance;
+    private CacheCalls $instance;
 
     protected function setUp(): void
     {

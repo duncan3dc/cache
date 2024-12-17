@@ -14,7 +14,7 @@ trait SimpleCacheTrait
      *
      * @return mixed The value of the item from the cache, or $default in case of cache miss
      */
-    public function get($key, $default = null)
+    public function get(string $key, mixed $default = null): mixed
     {
         if ($this->has($key)) {
             /** @var CacheItemInterface $item */
@@ -37,7 +37,7 @@ trait SimpleCacheTrait
      *
      * @return bool
      */
-    public function set($key, $value, $ttl = null)
+    public function set(string $key, mixed $value, \DateInterval|int|null $ttl = null): bool
     {
         $item = new Item($key, $value);
         if ($ttl !== null) {
@@ -49,12 +49,8 @@ trait SimpleCacheTrait
 
     /**
      * Delete an item from the cache by its unique key.
-     *
-     * @param string $key The unique cache key of the item to delete
-     *
-     * @return bool
      */
-    public function delete($key)
+    public function delete(string $key): bool
     {
         return $this->deleteItem($key);
     }
@@ -68,10 +64,8 @@ trait SimpleCacheTrait
      *
      * @return iterable<string, mixed> A list of key => value pairs
      */
-    public function getMultiple($keys, $default = null)
+    public function getMultiple(iterable $keys, mixed $default = null): iterable
     {
-        $this->validateKeys($keys);
-
         $result = [];
 
         foreach ($keys as $key) {
@@ -86,14 +80,9 @@ trait SimpleCacheTrait
      * Persists a set of key => value pairs in the cache.
      *
      * @param iterable<string, mixed> $values A list of key => value pairs for a multiple-set operation
-     * @param \DateInterval|int|null $ttl The TTL value of this item
-     *
-     * @return bool
      */
-    public function setMultiple($values, $ttl = null)
+    public function setMultiple(iterable $values, \DateInterval|int|null $ttl = null): bool
     {
-        $this->validateKeys($values);
-
         $result = true;
         foreach ($values as $key => $value) {
             if (!$this->set($key, $value, $ttl)) {
@@ -109,13 +98,9 @@ trait SimpleCacheTrait
      * Deletes multiple cache items in a single operation.
      *
      * @param iterable<string> $keys A list of string-based keys to be deleted
-     *
-     * @return bool
      */
-    public function deleteMultiple($keys)
+    public function deleteMultiple(iterable $keys): bool
     {
-        $this->validateKeys($keys);
-
         $result = true;
         foreach ($keys as $key) {
             if (!$this->delete($key)) {
@@ -129,12 +114,8 @@ trait SimpleCacheTrait
 
     /**
      * Determines whether an item is present in the cache.
-     *
-     * @param string $key The cache item key
-     *
-     * @return bool
      */
-    public function has($key)
+    public function has(string $key): bool
     {
         return $this->hasItem($key);
     }

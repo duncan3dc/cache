@@ -11,13 +11,10 @@ use function sha1;
 
 trait CacheCallsTrait
 {
-    /**
-     * @var SimpleCacheInterface The internal cache instance we are using.
-     */
-    private $_cache;
+    private ?SimpleCacheInterface $_cache = null;
 
 
-    protected function setCacheCallsPool(SimpleCacheInterface $pool)
+    protected function setCacheCallsPool(SimpleCacheInterface $pool): void
     {
         $this->_cache = $pool;
     }
@@ -33,7 +30,7 @@ trait CacheCallsTrait
     }
 
 
-    public function cacheMethod(string $method, ...$args)
+    public function cacheMethod(string $method, ...$args): mixed
     {
         # Generates a key for this method call and its arguments
         $key = sha1($method . print_r($args, true));

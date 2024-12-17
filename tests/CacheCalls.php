@@ -9,17 +9,14 @@ class CacheCalls
 {
     use CacheCallsTrait;
 
-    /** @var int */
-    private $counter1 = 0;
+    private int $counter1 = 0;
 
-    /** @var int */
-    private $counter2 = 0;
+    private int $counter2 = 0;
 
-    /** @var int */
-    private $counter3 = 0;
+    private int $counter3 = 0;
 
 
-    public function __construct(CacheInterface $pool = null)
+    public function __construct(?CacheInterface $pool = null)
     {
         if ($pool !== null) {
             $this->setCacheCallsPool($pool);

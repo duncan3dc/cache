@@ -12,11 +12,9 @@ use function sys_get_temp_dir;
 
 class FilesystemPoolTest extends AbstractPoolTest
 {
-    /** @var string */
-    private $parent;
+    private string $parent;
 
-    /** @var string */
-    private $path;
+    private string $path;
 
 
     protected function setUp(): void

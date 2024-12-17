@@ -9,20 +9,11 @@ use function time;
 
 final class Item implements CacheItemInterface
 {
-    /**
-     * @var string The unique key of this item.
-     */
-    private $key;
+    private string $key;
 
-    /**
-     * @var mixed The current value of this item.
-     */
-    private $value;
+    private mixed $value = null;
 
-    /**
-     * @var int|null The expiration time of this item.
-     */
-    private $expiration;
+    private ?int $expiration = null;
 
 
     /**
@@ -31,7 +22,7 @@ final class Item implements CacheItemInterface
      * @param string $key The unique key of this item
      * @param mixed $value The current value of this item
      */
-    public function __construct($key, $value = null)
+    public function __construct(string $key, mixed $value = null)
     {
         $this->key = $key;
         if ($value !== null) {
@@ -45,7 +36,7 @@ final class Item implements CacheItemInterface
      *
      * @return string
      */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
@@ -56,7 +47,7 @@ final class Item implements CacheItemInterface
      *
      * @return mixed
      */
-    public function get()
+    public function get(): mixed
     {
         return $this->value;
     }
@@ -67,7 +58,7 @@ final class Item implements CacheItemInterface
      *
      * @return bool
      */
-    public function isHit()
+    public function isHit(): bool
     {
         if ($this->value === null) {
             return false;
@@ -90,7 +81,7 @@ final class Item implements CacheItemInterface
      *
      * @return $this
      */
-    public function set($value)
+    public function set(mixed $value): static
     {
         $this->value = $value;
 
@@ -105,7 +96,7 @@ final class Item implements CacheItemInterface
      *
      * @return $this
      */
-    public function expiresAt($expiration)
+    public function expiresAt(?\DateTimeInterface $expiration): static
     {
         if ($expiration instanceof \DateTimeInterface) {
             $this->expiration = $expiration->getTimestamp();
@@ -126,7 +117,7 @@ final class Item implements CacheItemInterface
      *
      * @return $this
      */
-    public function expiresAfter($time)
+    public function expiresAfter(\DateInterval|int|null $time): static
     {
         if ($time instanceof \DateInterval) {
             $time = (int) $time->format("%r%s");

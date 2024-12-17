@@ -9,8 +9,7 @@ use function str_repeat;
 
 class CacheKeysTraitTest extends TestCase
 {
-    /** @var CacheKeys */
-    private $cache;
+    private CacheKeys $cache;
 
     protected function setUp(): void
     {

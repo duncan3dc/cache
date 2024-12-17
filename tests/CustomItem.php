@@ -9,27 +9,14 @@ use function time;
 
 class CustomItem implements CacheItemInterface
 {
-    /**
-     * @var string The unique key of this item.
-     */
-    private $key;
+    private string $key;
 
-    /**
-     * @var mixed The current value of this item.
-     */
-    private $value;
+    private mixed $value = null;
 
-    /**
-     * @var int|null The expiration time of this item.
-     */
-    private $expiration;
+    private ?int $expiration = null;
 
 
-    /**
-     * @param string $key
-     * @param mixed $value
-     */
-    public function __construct($key, $value = null)
+    public function __construct(string $key, mixed $value = null)
     {
         $this->key = $key;
         if ($value !== null) {
@@ -38,28 +25,19 @@ class CustomItem implements CacheItemInterface
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function getKey()
+    public function getKey(): string
     {
         return $this->key;
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function get()
+    public function get(): mixed
     {
         return $this->value;
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function isHit()
+    public function isHit(): bool
     {
         if ($this->value === null) {
             return false;
@@ -75,10 +53,7 @@ class CustomItem implements CacheItemInterface
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function set($value)
+    public function set(mixed $value): static
     {
         $this->value = $value;
 
@@ -86,10 +61,7 @@ class CustomItem implements CacheItemInterface
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function expiresAt($expiration)
+    public function expiresAt(?\DateTimeInterface $expiration): static
     {
         if ($expiration instanceof \DateTimeInterface) {
             $this->expiration = $expiration->getTimestamp();
@@ -101,10 +73,7 @@ class CustomItem implements CacheItemInterface
     }
 
 
-    /**
-     * @inheritDoc
-     */
-    public function expiresAfter($time)
+    public function expiresAfter(\DateInterval|int|null $time): static
     {
         if ($time instanceof \DateInterval) {
             $time = (int) $time->format("%r%s");
