@@ -306,7 +306,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->pool->set("periphery", "clear");
         $this->assertTrue($this->pool->has("periphery"));
         $this->pool->clear();
-        self::assertFalse($this->pool->has("periphery"));
+        $result = $this->pool->has("periphery");
+        $this->assertFalse($result);
     }
 
 
