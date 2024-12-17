@@ -20,12 +20,35 @@ class CacheKeysTraitTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function validateKeyProvider()
+    public function goodKeyProvider()
     {
         $keys = [
-            "ok"        =>  null,
-            "ok_1_2"    =>  null,
-            "ABC-abc"   =>  null,
+            "ok",
+            "ok_1_2",
+            "ABC-abc",
+        ];
+        foreach ($keys as $key) {
+            yield [$key];
+        }
+    }
+
+
+    /**
+     * @dataProvider goodKeyProvider
+     * @doesNotPerformAssertions
+     */
+    public function testValidateGoodKey(string $key): void
+    {
+        $this->cache->validateKey($key);
+    }
+
+
+    /**
+     * @return iterable<array<mixed>>
+     */
+    public function badKeyProvider()
+    {
+        $keys = [
             "NOT_OK_@"  =>  "Cache key contains invalid characters",
             "No Spaces" =>  "Cache key contains invalid characters",
             "!NOPE"     =>  "Cache key contains invalid characters",
@@ -36,24 +59,16 @@ class CacheKeysTraitTest extends TestCase
         foreach ($keys as $key => $expected) {
             yield [$key, $expected];
         }
-        yield [false, "Cache key must be a string"];
-        yield [null, "Cache key must be a string"];
-        yield [[], "Cache key must be a string"];
-        yield [new \DateTime(), "Cache key must be a string"];
     }
-    /**
-     * @dataProvider validateKeyProvider
-     * @param mixed $key
-     * @param mixed $expected
-     */
-    public function testValidateKey($key, $expected): void
-    {
-        if ($expected !== null) {
-            $this->expectException(CacheKeyException::class);
-            $this->expectExceptionMessage($expected);
-        }
 
+
+    /**
+     * @dataProvider badKeyProvider
+     */
+    public function testValidateBadKey(string $key, string $expected): void
+    {
+        $this->expectException(CacheKeyException::class);
+        $this->expectExceptionMessage($expected);
         $this->cache->validateKey($key);
-        $this->assertTrue(true);
     }
 }

@@ -3,6 +3,7 @@
 namespace duncan3dc\CacheTests;
 
 use duncan3dc\Cache\CacheCallsTrait;
+use PHPUnit\Framework\Assert;
 use Psr\SimpleCache\CacheInterface;
 
 class CacheCalls
@@ -46,7 +47,9 @@ class CacheCalls
 
     public function manualOnce(): string
     {
-        return $this->cacheMethod("manualOnce");
+        $result = $this->cacheMethod("manualOnce");
+        Assert::assertIsString($result);
+        return $result;
     }
 
 

@@ -46,6 +46,7 @@ abstract class AbstractPoolTest extends TestCase
 
         $items = [];
         foreach ($this->pool->getItems(["episode4", "episode5", "episode6"]) as $item) {
+            self::assertInstanceOf(Item::class, $item);
             $items[$item->getKey()] = $item->get();
         }
 
@@ -298,16 +299,14 @@ abstract class AbstractPoolTest extends TestCase
         $this->pool->set("afi", "decemberunderground");
         $this->assertTrue($this->pool->has("afi"));
         $this->pool->delete("afi");
-        $result = $this->pool->has("afi");
-        $this->assertFalse($result);
+        $this->assertFalse($this->pool->has("afi"));
     }
     public function testHas4(): void
     {
         $this->pool->set("periphery", "clear");
         $this->assertTrue($this->pool->has("periphery"));
         $this->pool->clear();
-        $result = $this->pool->has("periphery");
-        self::assertFalse($result);
+        self::assertFalse($this->pool->has("periphery"));
     }
 
 

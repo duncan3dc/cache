@@ -68,6 +68,7 @@ class FilesystemPoolTest extends AbstractPoolTest
 
         $intruder = new Intruder($pool);
         $path = $intruder->getPath("trivium");
+        self::assertIsString($path);
 
         file_put_contents($path, serialize(new \DateTime()));
 
