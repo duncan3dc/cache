@@ -5,6 +5,18 @@ Changelog
 
 --------
 
+## 2.0.0 - 2024-12-18
+
+### Fixed
+
+### Changed
+
+* [General] Added parameter and return types to all methods.
+* [Support] Added support for PHP 8.2, 8.3, and 8.4.
+* [Support] Dropped support for PHP 7.3 and 7.4.
+
+--------
+
 ## 1.0.0 - 2022-03-13
 
 ### Fixed
