@@ -11,6 +11,7 @@ class CacheKeysTraitTest extends TestCase
 {
     private CacheKeys $cache;
 
+
     protected function setUp(): void
     {
         $this->cache = new CacheKeys();
@@ -49,12 +50,12 @@ class CacheKeysTraitTest extends TestCase
     public function badKeyProvider()
     {
         $keys = [
-            "NOT_OK_@"  =>  "Cache key contains invalid characters",
-            "No Spaces" =>  "Cache key contains invalid characters",
-            "!NOPE"     =>  "Cache key contains invalid characters",
-            "/root"     =>  "Cache key contains invalid characters",
-            "\\escape"  =>  "Cache key contains invalid characters",
-            "too" . str_repeat("o", 60) . "_long"  =>  "Cache key cannot be longer than 64 characters",
+            "NOT_OK_@" => "Cache key contains invalid characters",
+            "No Spaces" => "Cache key contains invalid characters",
+            "!NOPE" => "Cache key contains invalid characters",
+            "/root" => "Cache key contains invalid characters",
+            "\\escape" => "Cache key contains invalid characters",
+            "too" . str_repeat("o", 60) . "_long" => "Cache key cannot be longer than 64 characters",
         ];
         foreach ($keys as $key => $expected) {
             yield [$key, $expected];

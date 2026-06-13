@@ -44,7 +44,7 @@ class ItemTest extends TestCase
         $item = new Item("test");
 
         $value = (object) [
-            "field" =>  "value",
+            "field" => "value",
         ];
 
         $result = $item->set($value);
@@ -61,6 +61,8 @@ class ItemTest extends TestCase
 
         $this->assertTrue($item->isHit());
     }
+
+
     public function testIsHit2(): void
     {
         $item = new Item("test");
@@ -77,6 +79,8 @@ class ItemTest extends TestCase
         $item->expiresAt(new \DateTime("2018-07-04 13:27:01"));
         $this->assertSame(false, $item->isHit());
     }
+
+
     public function testExpiresAt2(): void
     {
         $item = new Item("test", "value");
@@ -96,6 +100,8 @@ class ItemTest extends TestCase
         $item->expiresAfter(-7);
         $this->assertSame(false, $item->isHit());
     }
+
+
     public function testExpiresAfter2(): void
     {
         $item = new Item("test", "value");
@@ -106,6 +112,8 @@ class ItemTest extends TestCase
         $item->expiresAfter($interval);
         $this->assertSame(false, $item->isHit());
     }
+
+
     public function testExpiresAfter3(): void
     {
         $item = new Item("test", "value");
