@@ -33,6 +33,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($this->pool->save($episode7));
         $this->assertSame("the force awakens", $this->pool->getItem("episode7")->get());
     }
+
+
     public function testGetItem2(): void
     {
         $this->assertNull($this->pool->getItem("episode8")->get());
@@ -51,9 +53,9 @@ abstract class AbstractPoolTest extends TestCase
         }
 
         $this->assertSame([
-            "episode4"  =>  "a new hope",
-            "episode5"  =>  "the empire strikes back",
-            "episode6"  =>  null,
+            "episode4" => "a new hope",
+            "episode5" => "the empire strikes back",
+            "episode6" => null,
         ], $items);
     }
 
@@ -63,6 +65,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->pool->save(new Item("episode7", "the force awakens"));
         $this->assertTrue($this->pool->hasItem("episode7"));
     }
+
+
     public function testHasItem2(): void
     {
         $this->assertFalse($this->pool->hasItem("episode8"));
@@ -142,10 +146,14 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
         $this->assertSame("the force awakens", $this->pool->get("episode7"));
     }
+
+
     public function testGet2(): void
     {
         $this->assertNull($this->pool->get("episode8"));
     }
+
+
     public function testGet3(): void
     {
         $result = $this->pool->get("episode8", "the last jedi");
@@ -167,12 +175,16 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($result);
         $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
     }
+
+
     public function testSetWithTtl2(): void
     {
         $result = $this->pool->set("novallo", "white phoenix", -7);
         $this->assertTrue($result);
         $this->assertSame("betty phage", $this->pool->get("novallo", "betty phage"));
     }
+
+
     public function testSetWithTtl3(): void
     {
         $interval = new \DateInterval("PT7S");
@@ -180,6 +192,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($result);
         $this->assertSame("white phoenix", $this->pool->get("novallo", "betty phage"));
     }
+
+
     public function testSetWithTtl4(): void
     {
         $interval = new \DateInterval("PT7S");
@@ -197,6 +211,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->assertTrue($result);
         $this->assertFalse($this->pool->has("snarky_puppy"));
     }
+
+
     public function testDelete2(): void
     {
         $result = $this->pool->delete("does-not-exist");
@@ -210,11 +226,13 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"]);
 
         $this->assertSame([
-            "episode7"  =>  null,
-            "episode8"  =>  null,
-            "episode9"  =>  null,
+            "episode7" => null,
+            "episode8" => null,
+            "episode9" => null,
         ], $result);
     }
+
+
     public function testGetMultiple2(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
@@ -222,11 +240,13 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"]);
 
         $this->assertSame([
-            "episode7"  =>  "the force awakens",
-            "episode8"  =>  null,
-            "episode9"  =>  null,
+            "episode7" => "the force awakens",
+            "episode8" => null,
+            "episode9" => null,
         ], $result);
     }
+
+
     public function testGetMultiple3(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
@@ -235,11 +255,13 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->getMultiple(["episode7", "episode8", "episode9"], "unknown");
 
         $this->assertSame([
-            "episode7"  =>  "the force awakens",
-            "episode8"  =>  "the last jedi",
-            "episode9"  =>  "unknown",
+            "episode7" => "the force awakens",
+            "episode8" => "the last jedi",
+            "episode9" => "unknown",
         ], $result);
     }
+
+
     public function testGetMultiple4(): void
     {
         $this->assertTrue($this->pool->set("episode7", "the force awakens"));
@@ -248,9 +270,9 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->getMultiple(new ArrayIterator(["episode7", "episode8", "episode9"]), "unknown");
 
         $this->assertSame([
-            "episode7"  =>  "the force awakens",
-            "episode8"  =>  "the last jedi",
-            "episode9"  =>  "unknown",
+            "episode7" => "the force awakens",
+            "episode8" => "the last jedi",
+            "episode9" => "unknown",
         ], $result);
     }
 
@@ -258,8 +280,8 @@ abstract class AbstractPoolTest extends TestCase
     public function testSetMultiple1(): void
     {
         $this->assertTrue($this->pool->setMultiple([
-            "episode4"  =>  "a new hope",
-            "episode5"  =>  "the empire strikes back",
+            "episode4" => "a new hope",
+            "episode5" => "the empire strikes back",
         ]));
 
         $this->assertSame("a new hope", $this->pool->get("episode4"));
@@ -270,9 +292,9 @@ abstract class AbstractPoolTest extends TestCase
     public function testDeleteMultiple1(): void
     {
         $this->assertTrue($this->pool->setMultiple([
-            "episode4"  =>  "a new hope",
-            "episode5"  =>  "the empire strikes back",
-            "episode6"  =>  "return of the jedi",
+            "episode4" => "a new hope",
+            "episode5" => "the empire strikes back",
+            "episode6" => "return of the jedi",
         ]));
 
         $this->assertTrue($this->pool->deleteMultiple(["episode4", "episode6"]));
@@ -288,12 +310,16 @@ abstract class AbstractPoolTest extends TestCase
         $result = $this->pool->has("no-such-key");
         $this->assertFalse($result);
     }
+
+
     public function testHas2(): void
     {
         $this->pool->set("haken", "affinity");
         $result = $this->pool->has("haken");
         $this->assertTrue($result);
     }
+
+
     public function testHas3(): void
     {
         $this->pool->set("afi", "decemberunderground");
@@ -301,6 +327,8 @@ abstract class AbstractPoolTest extends TestCase
         $this->pool->delete("afi");
         $this->assertFalse($this->pool->has("afi"));
     }
+
+
     public function testHas4(): void
     {
         $this->pool->set("periphery", "clear");
@@ -319,6 +347,8 @@ abstract class AbstractPoolTest extends TestCase
 
         $this->assertInstanceOf(CustomItem::class, $result);
     }
+
+
     public function testCustomItem2(): void
     {
         $item = new CustomItem("coheed", "cambria");
@@ -328,6 +358,8 @@ abstract class AbstractPoolTest extends TestCase
 
         $this->assertSame("cambria", $result->get());
     }
+
+
     public function testCustomItem3(): void
     {
         $item = new CustomItem("coheed", "cambria");

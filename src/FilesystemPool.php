@@ -27,6 +27,7 @@ final class FilesystemPool implements CacheInterface
 
     private string $path;
 
+
     /**
      * Create a new instance.
      *
@@ -226,8 +227,7 @@ final class FilesystemPool implements CacheInterface
     /**
      * Sets a cache item to be persisted later.
      *
-     * @param CacheItemInterface $item
-     *   The cache item to save.
+     * @param CacheItemInterface $item The cache item to save.
      *
      * @return bool
      * @throws CacheKeyException

@@ -11,6 +11,7 @@ class CacheCallsTraitTest extends TestCase
 {
     private CacheCalls $instance;
 
+
     protected function setUp(): void
     {
         $this->instance = new CacheCalls();
